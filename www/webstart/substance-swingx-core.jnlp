@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="https://substance-swingx.dev.java.net/webstart/"
+ href="substance-swingx-core.jnlp">
+<information>
+  <title>Substance SwingX core jars</title>
+  <vendor>https://substance-swingx.dev.java.net/</vendor>
+  <offline-allowed/> 
+</information>
+<offline-allowed/>
+<security>
+  <all-permissions/>
+</security>
+<resources>
+  <property name="jnlp.packEnabled" value="true"/>
+  <j2se version="1.6+" />
+  <jar href="substance-swingx.jar"/>
+  <jar href="swingx.jar"/>
+</resources>
+<component-desc/>
+</jnlp>
