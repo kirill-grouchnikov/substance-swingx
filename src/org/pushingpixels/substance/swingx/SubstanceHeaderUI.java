@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 Kirill Grouchnikov, based on work by
+ * Copyright 2005-2016 Kirill Grouchnikov, based on work by
  * Sun Microsystems, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
@@ -18,6 +18,7 @@
  */
 package org.pushingpixels.substance.swingx;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
@@ -110,7 +111,7 @@ public class SubstanceHeaderUI extends BasicHeaderUI {
 	 */
 	@Override
 	protected Painter<?> createBackgroundPainter() {
-		return new PainterUIResource(new Painter<JXHeader>() {
+		return new PainterUIResource<JXHeader>(new Painter<JXHeader>() {
 			public void paint(Graphics2D g, JXHeader jxHeader, int width,
 					int height) {
 				// SubstanceDecorationUtilities.paintDecorationBackground(g,
@@ -128,5 +129,4 @@ public class SubstanceHeaderUI extends BasicHeaderUI {
 			}
 		});
 	}
-
 }

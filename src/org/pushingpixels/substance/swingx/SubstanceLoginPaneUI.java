@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 Kirill Grouchnikov, based on work by
+ * Copyright 2005-2016 Kirill Grouchnikov, based on work by
  * Sun Microsystems, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
@@ -31,10 +31,12 @@ import org.jdesktop.swingx.plaf.basic.BasicLoginPaneUI;
 import org.pushingpixels.lafwidget.utils.RenderingUtils;
 import org.pushingpixels.substance.api.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.swingx.svg.Window_new;
 
 /**
  * Substance-consistent UI delegate for {@link JXLoginPane}.
@@ -72,26 +74,21 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
 	@Override
 	public void installUI(JComponent c) {
 		super.installUI(c);
-		this.substanceHierarchyListener = new HierarchyListener() {
-			public void hierarchyChanged(HierarchyEvent e) {
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						Window window = SwingUtilities
-								.getWindowAncestor(loginPanel);
-						if (window != null) {
-							JComponent titlePane = SubstanceLookAndFeel
-									.getTitlePaneComponent(window);
-							if (titlePane != null) {
-								titlePane.putClientProperty(
-										SubstanceLookAndFeel.WATERMARK_VISIBLE,
-										Boolean.FALSE);
-							}
-						}
-
-						loginPanel.setBanner(getBanner());
+		this.substanceHierarchyListener = (HierarchyEvent e) -> {
+			SwingUtilities.invokeLater(() -> {
+				Window window = SwingUtilities.getWindowAncestor(loginPanel);
+				if (window != null) {
+					JComponent titlePane = SubstanceLookAndFeel
+							.getTitlePaneComponent(window);
+					if (titlePane != null) {
+						titlePane.putClientProperty(
+								SubstanceLookAndFeel.WATERMARK_VISIBLE,
+								Boolean.FALSE);
 					}
-				});
-			}
+				}
+
+				loginPanel.setBanner(getBanner());
+			});
 		};
 		this.loginPanel.addHierarchyListener(this.substanceHierarchyListener);
 		// this.substanceComponentListener = new ComponentAdapter() {
@@ -138,21 +135,19 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
 
 		int width = superResult.getWidth(null);
 		int height = superResult.getHeight(null);
-		BufferedImage result = SubstanceCoreUtilities.getBlankImage(width,
-				height);
+		BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
 		Graphics2D graphics = (Graphics2D) result.getGraphics();
 
-		Icon origIcon = SubstanceCoreUtilities
-				.getIcon("resource/32/login-new32.png");
-		origIcon = SubstanceCoreUtilities.getThemedIcon(this.loginPanel,
-				origIcon);
+		Window_new origIcon = new Window_new();
+		origIcon.setDimension(new Dimension(32, 32));
+		Icon themedIcon = SubstanceCoreUtilities.getThemedIcon(this.loginPanel, origIcon);
 
 		SubstanceLookAndFeel.setDecorationType(this.loginPanel,
 				DecorationAreaType.HEADER);
 		BackgroundPaintingUtils.update(graphics, this.loginPanel, true);
 		DecorationPainterUtils.clearDecorationType(this.loginPanel);
 
-		float loginStringX = origIcon.getIconWidth() + 8 + width * .05f;
+		float loginStringX = themedIcon.getIconWidth() + 8 + width * .05f;
 		float loginStringY = height * .75f;
 
 		Font font = UIManager.getFont("JXLoginPane.bannerFont");
@@ -163,7 +158,7 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
 			graphics.scale(-1, 1);
 			graphics.translate(-width, 0);
 			loginStringX = width
-					- origIcon.getIconWidth()
+					- themedIcon.getIconWidth()
 					- 8
 					- (((float) font.getStringBounds(
 							loginPanel.getBannerText(),
@@ -179,13 +174,31 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
 		originalGraphics.drawString(loginPanel.getBannerText(), loginStringX,
 				loginStringY);
 
-		int iconY = (height - origIcon.getIconHeight()) / 2;
+		int iconY = (height - themedIcon.getIconHeight()) / 2;
 		if (!loginPanel.getComponentOrientation().isLeftToRight()) {
-			origIcon.paintIcon(loginPanel, graphics, width
-					- origIcon.getIconWidth() - 8, iconY);
+			graphics.translate(width - themedIcon.getIconWidth() - 8, iconY);
+			themedIcon.paintIcon(loginPanel, graphics, 0, 0);
 		} else {
-			origIcon.paintIcon(loginPanel, graphics, 8, iconY);
+			graphics.translate(8, iconY);
+			themedIcon.paintIcon(loginPanel, graphics, 0, 0);
 		}
+		
+		if (UIUtil.isRetina()) {
+			GraphicsEnvironment e = GraphicsEnvironment
+					.getLocalGraphicsEnvironment();
+			GraphicsDevice d = e.getDefaultScreenDevice();
+			GraphicsConfiguration c = d.getDefaultConfiguration();
+			BufferedImage scaledDown = c.createCompatibleImage(width, height,
+					Transparency.TRANSLUCENT);
+			Graphics2D scaledGraphics = (Graphics2D) scaledDown.getGraphics().create();
+			scaledGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+			scaledGraphics.drawImage(result, 0, 0, result.getWidth() / 2,
+					result.getHeight() / 2, null);
+			scaledGraphics.dispose();
+			result = scaledDown;
+		}
+		
 		return result;
 	}
 }

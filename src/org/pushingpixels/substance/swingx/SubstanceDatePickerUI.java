@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 Kirill Grouchnikov, based on work by
+ * Copyright 2005-2016 Kirill Grouchnikov, based on work by
  * Sun Microsystems, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
@@ -43,6 +43,7 @@ import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXMonthView;
 import org.jdesktop.swingx.plaf.MonthViewUI;
 import org.jdesktop.swingx.plaf.basic.BasicDatePickerUI;
+import org.pushingpixels.lafwidget.utils.RenderingUtils;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceConstants.Side;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -94,13 +95,10 @@ public class SubstanceDatePickerUI extends BasicDatePickerUI {
 	protected void installListeners() {
 		super.installListeners();
 
-		this.substancePropertyChangeListener = new PropertyChangeListener() {
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				// issue 7 - update the popup button on orientation change
-				if ("componentOrientation".equals(evt.getPropertyName())) {
-					configurePopupButton();
-				}
+		this.substancePropertyChangeListener = (PropertyChangeEvent evt) -> {
+			// issue 7 - update the popup button on orientation change
+			if ("componentOrientation".equals(evt.getPropertyName())) {
+				configurePopupButton();
 			}
 		};
 		this.datePicker
@@ -264,5 +262,13 @@ public class SubstanceDatePickerUI extends BasicDatePickerUI {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void update(Graphics g, JComponent c) {
+		Graphics2D g2d = (Graphics2D) g.create();
+		RenderingUtils.installDesktopHints(g2d, c);
+		super.update(g2d, c);
+		g2d.dispose();
 	}
 }

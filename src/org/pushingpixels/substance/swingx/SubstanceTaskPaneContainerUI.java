@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 Kirill Grouchnikov, based on work by
+ * Copyright 2005-2016 Kirill Grouchnikov, based on work by
  * Sun Microsystems, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
@@ -28,6 +28,7 @@ import javax.swing.plaf.ComponentUI;
 import org.jdesktop.swingx.JXTaskPaneContainer;
 import org.jdesktop.swingx.VerticalLayout;
 import org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI;
+import org.pushingpixels.lafwidget.animation.effects.GhostPaintingUtils;
 import org.pushingpixels.substance.api.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
@@ -114,5 +115,11 @@ public class SubstanceTaskPaneContainerUI extends BasicTaskPaneContainerUI {
 	@Override
 	public void paint(Graphics g, JComponent c) {
 		this.bgDelegate.paint(c, (Graphics2D) g, false);
+	}
+
+	@Override
+	public void update(Graphics g, JComponent c) {
+		super.update(g, c);
+		GhostPaintingUtils.paintGhostImages(c, g);
 	}
 }

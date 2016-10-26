@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 Kirill Grouchnikov, based on work by
+ * Copyright 2005-2016 Kirill Grouchnikov, based on work by
  * Sun Microsystems, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
@@ -19,10 +19,16 @@
 package org.pushingpixels.substance.swingx;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.plaf.ComponentUI;
 
 import org.jdesktop.swingx.JXHeader;
@@ -36,6 +42,7 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.icon.GlowingIcon;
+import org.pushingpixels.substance.swingx.svg.Dialog_information;
 
 /**
  * Substance-consistent UI delegate for {@link JXTipOfTheDay}.
@@ -80,17 +87,16 @@ public class SubstanceTipOfTheDayUI extends BasicTipOfTheDayUI {
 		JXHeader didYouKnow = new JXHeader();
 		didYouKnow.setTitle(UIManagerExt.getString(
 				"TipOfTheDay.didYouKnowText", tipPane.getLocale()));
-		SubstanceLookAndFeel.setDecorationType(didYouKnow,
-				DecorationAreaType.GENERAL);
+		SubstanceLookAndFeel.setDecorationType(didYouKnow, DecorationAreaType.GENERAL);
 
-		Icon infoIcon = SubstanceLookAndFeel.isToUseConstantThemesOnDialogs() ? SubstanceCoreUtilities
-				.getIcon("resource/22/dialog-information.png")
-				: SubstanceCoreUtilities.getThemedIcon(this.tipPane,
-						SubstanceCoreUtilities
-								.getIcon("resource/22/dialog-information.png"));
+		Dialog_information origIcon = new Dialog_information();
+		origIcon.setDimension(new Dimension(22, 22));
+		Icon infoIcon = SubstanceLookAndFeel.isToUseConstantThemesOnDialogs() ? origIcon
+				: SubstanceCoreUtilities.getThemedIcon(this.tipPane, origIcon);
 
 		this.iconGlowTracker = new IconGlowTracker(didYouKnow);
-		didYouKnow.setIcon(new GlowingIcon(infoIcon, this.iconGlowTracker));
+		GlowingIcon glowingIcon = new GlowingIcon(infoIcon, this.iconGlowTracker);
+		didYouKnow.setIcon(glowingIcon);
 		didYouKnow.setDescription("");
 
 		didYouKnow.addMouseListener(new MouseAdapter() {

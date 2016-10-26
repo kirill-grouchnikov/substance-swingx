@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 Kirill Grouchnikov, based on work by
+ * Copyright 2005-2016 Kirill Grouchnikov, based on work by
  * Sun Microsystems, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
@@ -253,36 +253,20 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements
 				}
 			};
 			this.expandedIcon = new TransitionAwareIcon(group,
-					new TransitionAwareIcon.TransitionAwareUIDelegate() {
-						@Override
-						public TransitionAwareUI getTransitionAwareUI() {
-							return (TransitionAwareUI) group.getUI();
-						}
-					}, new TransitionAwareIcon.Delegate() {
-						public Icon getColorSchemeIcon(
-								SubstanceColorScheme scheme) {
-							return SubstanceImageCreator
-									.getDoubleArrowIconDelta(SubstanceSizeUtils
-											.getComponentFontSize(group), 0, 3,
-											0, SwingConstants.NORTH, scheme);
-						}
-					}, colorSchemeAssociationDelegate,
+					() -> (TransitionAwareUI) group.getUI(),
+					(SubstanceColorScheme scheme) ->
+							SubstanceImageCreator.getDoubleArrowIconDelta(
+									SubstanceSizeUtils.getComponentFontSize(group), 
+									0, 3, 0, SwingConstants.NORTH, scheme),
+					colorSchemeAssociationDelegate,
 					"substance.swingx.taskpane.expanded");
 			this.collapsedIcon = new TransitionAwareIcon(group,
-					new TransitionAwareIcon.TransitionAwareUIDelegate() {
-						@Override
-						public TransitionAwareUI getTransitionAwareUI() {
-							return (TransitionAwareUI) group.getUI();
-						}
-					}, new TransitionAwareIcon.Delegate() {
-						public Icon getColorSchemeIcon(
-								SubstanceColorScheme scheme) {
-							return SubstanceImageCreator
-									.getDoubleArrowIconDelta(SubstanceSizeUtils
-											.getComponentFontSize(group), 0, 3,
-											0, SwingConstants.SOUTH, scheme);
-						}
-					}, colorSchemeAssociationDelegate,
+					() -> (TransitionAwareUI) group.getUI(),
+					(SubstanceColorScheme scheme) ->
+					SubstanceImageCreator.getDoubleArrowIconDelta(
+							SubstanceSizeUtils.getComponentFontSize(group), 
+							0, 3, 0, SwingConstants.SOUTH, scheme),
+					colorSchemeAssociationDelegate,
 					"substance.swingx.taskpane.collapsed");
 
 			// since the label is never added to this component, we need
@@ -417,12 +401,15 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements
 			Icon arrowIcon = group.isCollapsed() ? collapsedIcon : expandedIcon;
 			int dx = (width - arrowIcon.getIconWidth()) / 2;
 			int dy = 1 + (height - arrowIcon.getIconHeight()) / 2;
-			arrowIcon.paintIcon(group, g, x + dx, y + dy);
-			// g.setColor(Color.red);
-			// g.drawRect(x, y, width, height);
-			// g.setColor(Color.green);
-			// g.drawRect(x + dx, y + dy, arrowIcon.getIconWidth(), arrowIcon
-			// .getIconHeight());
+			Graphics2D g2d = (Graphics2D) g.create();
+			g2d.translate(x + dx, y + dy);
+			arrowIcon.paintIcon(group, g2d, 0, 0);
+			g2d.dispose();
+//			 g.setColor(Color.red);
+//			 g.drawRect(x, y, width, height);
+//			 g.setColor(Color.green);
+//			 g.drawRect(x + dx, y + dy, arrowIcon.getIconWidth(), arrowIcon
+//			 .getIconHeight());
 		}
 
 		/*

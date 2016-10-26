@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 Kirill Grouchnikov, based on work by
+ * Copyright 2005-2016 Kirill Grouchnikov, based on work by
  * Sun Microsystems, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
@@ -26,7 +26,9 @@ import javax.swing.plaf.ComponentUI;
 
 import org.jdesktop.swingx.JXStatusBar;
 import org.jdesktop.swingx.plaf.basic.BasicStatusBarUI;
+import org.pushingpixels.lafwidget.animation.effects.GhostPaintingUtils;
 import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 import org.pushingpixels.substance.internal.utils.*;
@@ -106,8 +108,10 @@ public class SubstanceStatusBarUI extends BasicStatusBarUI {
 							ComponentState.ENABLED);
 			BufferedImage resizeImage = SubstanceImageCreator
 					.getResizeGripImage(bar, scheme, dim, false);
-			g.drawImage(resizeImage, bar.getWidth() - dim, bar.getHeight()
-					- dim, null);
+			int scaleFactor = UIUtil.isRetina() ? 2 : 1;
+			g.drawImage(resizeImage, bar.getWidth() - dim, bar.getHeight() - dim,
+					resizeImage.getWidth() / scaleFactor, resizeImage.getHeight() / scaleFactor,
+					null);
 		}
 	}
 
@@ -152,5 +156,11 @@ public class SubstanceStatusBarUI extends BasicStatusBarUI {
 		result.bottom = SubstanceSizeUtils.getAdjustedSize(componentFontSize,
 				result.bottom, 4, 1, false);
 		return result;
+	}
+
+	@Override
+	public void update(Graphics g, JComponent c) {
+		super.update(g, c);
+		GhostPaintingUtils.paintGhostImages(c, g);
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 Kirill Grouchnikov, based on work by
+ * Copyright 2005-2016 Kirill Grouchnikov, based on work by
  * Sun Microsystems, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
@@ -53,6 +53,7 @@ import org.jdesktop.swingx.plaf.basic.CalendarState;
 import org.pushingpixels.lafwidget.LafWidgetUtilities;
 import org.pushingpixels.lafwidget.animation.AnimationConfigurationManager;
 import org.pushingpixels.lafwidget.animation.AnimationFacet;
+import org.pushingpixels.lafwidget.utils.RenderingUtils;
 import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.ComponentStateFacet;
@@ -561,21 +562,19 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 		 * Repaints the associated cell.
 		 */
 		private void repaintCell() {
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					if (monthView != SubstanceMonthViewUI.this.monthView) {
-						// may happen if the LAF was switched in the meantime
-						return;
-					}
-					Calendar cal = monthView.getCalendar();
-					cal.set(Calendar.MONTH, monthIndex);
-					cal.set(Calendar.YEAR, yearIndex);
-					Rectangle monthBounds = getMonthBounds(cal.getTime());
-					// Rectangle monthTitleBounds = monthTitleBoundsMap
-					// .get(monthIndex + ":" + yearIndex);
-					if (monthBounds != null) {
-						monthView.repaint(monthBounds);
-					}
+			SwingUtilities.invokeLater(() -> {
+				if (monthView != SubstanceMonthViewUI.this.monthView) {
+					// may happen if the LAF was switched in the meantime
+					return;
+				}
+				Calendar cal = monthView.getCalendar();
+				cal.set(Calendar.MONTH, monthIndex);
+				cal.set(Calendar.YEAR, yearIndex);
+				Rectangle monthBounds = getMonthBounds(cal.getTime());
+				// Rectangle monthTitleBounds = monthTitleBoundsMap
+				// .get(monthIndex + ":" + yearIndex);
+				if (monthBounds != null) {
+					monthView.repaint(monthBounds);
 				}
 			});
 		}
@@ -634,22 +633,20 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 		 * Repaints the associated cell.
 		 */
 		private void repaintCell() {
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					if (monthView != SubstanceMonthViewUI.this.monthView) {
-						// may happen if the LAF was switched in the meantime
-						return;
-					}
-					Calendar cal = monthView.getCalendar();
-					cal.set(Calendar.DAY_OF_MONTH, dayIndex);
-					cal.set(Calendar.MONTH, monthIndex);
-					cal.set(Calendar.YEAR, yearIndex);
+			SwingUtilities.invokeLater(() -> {
+				if (monthView != SubstanceMonthViewUI.this.monthView) {
+					// may happen if the LAF was switched in the meantime
+					return;
+				}
+				Calendar cal = monthView.getCalendar();
+				cal.set(Calendar.DAY_OF_MONTH, dayIndex);
+				cal.set(Calendar.MONTH, monthIndex);
+				cal.set(Calendar.YEAR, yearIndex);
 
-					Rectangle dayBounds = getDayBounds(cal.getTime());
+				Rectangle dayBounds = getDayBounds(cal.getTime());
 
-					if (dayBounds != null) {
-						DayRepaintCallback.this.monthView.repaint(dayBounds);
-					}
+				if (dayBounds != null) {
+					DayRepaintCallback.this.monthView.repaint(dayBounds);
 				}
 			});
 		}
@@ -867,8 +864,11 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 	 */
 	@Override
 	public void update(Graphics g, JComponent c) {
-		BackgroundPaintingUtils.update(g, this.monthView, false);
-		this.paint(g, c);
+		Graphics2D g2d = (Graphics2D) g.create();
+		RenderingUtils.installDesktopHints(g2d, this.monthView);
+		BackgroundPaintingUtils.update(g2d, this.monthView, false);
+		this.paint(g2d, c);
+		g2d.dispose();
 	}
 
 	protected class SubstanceRenderingHandler extends RenderingHandler {
@@ -1037,13 +1037,8 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 			model.setRollover(initialRollover);
 			tracker = new StateTransitionTracker(this.monthView, model);
 			tracker.registerModelListeners();
-			tracker.setRepaintCallback(new RepaintCallback() {
-				@Override
-				public TimelineCallback getRepaintCallback() {
-					return new DayRepaintCallback(monthView, dateId.day,
-							dateId.month, dateId.year);
-				}
-			});
+			tracker.setRepaintCallback(() -> new DayRepaintCallback(monthView, dateId.day,
+							dateId.month, dateId.year));
 			dayStateTransitionMultiTracker.addTracker(dateId, tracker);
 		}
 		return tracker;
@@ -1059,13 +1054,8 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 			model.setRollover(initialRollover);
 			tracker = new StateTransitionTracker(this.monthView, model);
 			tracker.registerModelListeners();
-			tracker.setRepaintCallback(new RepaintCallback() {
-				@Override
-				public TimelineCallback getRepaintCallback() {
-					return new MonthRepaintCallback(monthView, monthId.month,
-							monthId.year);
-				}
-			});
+			tracker.setRepaintCallback(() -> new MonthRepaintCallback(monthView, monthId.month,
+							monthId.year));
 			monthStateTransitionMultiTracker.addTracker(monthId, tracker);
 		}
 		return tracker;

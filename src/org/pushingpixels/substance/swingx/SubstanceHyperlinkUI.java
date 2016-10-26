@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2010 Kirill Grouchnikov, based on work by
+ * Copyright 2005-2016 Kirill Grouchnikov, based on work by
  * Sun Microsystems, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
@@ -18,11 +18,15 @@
  */
 package org.pushingpixels.substance.swingx;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 import javax.swing.JComponent;
 import javax.swing.plaf.ComponentUI;
 
 import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.plaf.basic.BasicHyperlinkUI;
+import org.pushingpixels.lafwidget.utils.RenderingUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 /**
@@ -34,5 +38,13 @@ public class SubstanceHyperlinkUI extends BasicHyperlinkUI {
 	public static ComponentUI createUI(JComponent comp) {
 		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
 		return new SubstanceHyperlinkUI();
+	}
+
+	@Override
+	public void update(Graphics g, JComponent c) {
+		Graphics2D g2d = (Graphics2D) g.create();
+		RenderingUtils.installDesktopHints(g2d, c);
+		super.update(g2d, c);
+		g2d.dispose();
 	}
 }
