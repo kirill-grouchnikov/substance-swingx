@@ -200,8 +200,8 @@ public class SubstanceDatePickerUI extends BasicDatePickerUI {
 
 		int componentFontSize = SubstanceSizeUtils
 				.getComponentFontSize(this.datePicker);
-		int borderDelta = (int) Math.floor(SubstanceSizeUtils
-				.getBorderStrokeWidth(componentFontSize));
+		float borderDelta = SubstanceSizeUtils
+				.getBorderStrokeWidth(componentFontSize);
 		Shape contour = SubstanceOutlineUtilities.getBaseOutline(datePicker
 				.getWidth(), datePicker.getHeight(), Math.max(0, 2.0f
 				* SubstanceSizeUtils

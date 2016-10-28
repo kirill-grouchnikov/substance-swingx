@@ -18,6 +18,7 @@
  */
 package org.pushingpixels.substance.swingx;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -55,6 +56,7 @@ import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
+import org.pushingpixels.substance.internal.utils.SubstanceInternalArrowButton;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
@@ -189,15 +191,19 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements
 				.getColorScheme(group, ColorSchemeAssociationKind.BORDER,
 						ComponentState.ENABLED);
 		// the code below is the same as for the separators
-		final Color borderColor = colorScheme.isDark() ? colorScheme
-				.getDarkColor() : SubstanceColorUtilities.getInterpolatedColor(
-				colorScheme.getMidColor(), colorScheme.getDarkColor(), 0.4);
+		final Color borderColor = colorScheme.isDark() ? colorScheme.getDarkColor() 
+				: SubstanceColorUtilities.getInterpolatedColor(
+						colorScheme.getMidColor(), colorScheme.getDarkColor(), 0.4);
 		Border outer = new Border() {
 			@Override
 			public void paintBorder(Component c, Graphics g, int x, int y,
 					int width, int height) {
 				Graphics2D g2d = (Graphics2D) g.create();
 
+				float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(
+						SubstanceSizeUtils.getComponentFontSize(c));
+				g2d.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_BUTT, 
+						BasicStroke.JOIN_ROUND));
 				g2d.setColor(borderColor);
 				// left
 				g2d.drawLine(x, y, x, y + height - 1);
