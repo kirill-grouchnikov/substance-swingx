@@ -30,6 +30,23 @@ import org.jdesktop.swingx.decorator.ColorHighlighter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
+import test.check.svg.flags.bg;
+import test.check.svg.flags.br;
+import test.check.svg.flags.ca;
+import test.check.svg.flags.cn;
+import test.check.svg.flags.de;
+import test.check.svg.flags.dk;
+import test.check.svg.flags.fi;
+import test.check.svg.flags.fr;
+import test.check.svg.flags.gr;
+import test.check.svg.flags.hu;
+import test.check.svg.flags.il;
+import test.check.svg.flags.it;
+import test.check.svg.flags.jp;
+import test.check.svg.flags.mx;
+import test.check.svg.flags.nl;
+import test.check.svg.flags.no;
+
 public class TablePanel extends JPanel {
 	private JXTable table;
 
@@ -72,15 +89,24 @@ public class TablePanel extends JPanel {
 				Boolean.class, Byte.class, Float.class, Double.class,
 				String.class, Date.class, ImageIcon.class, Color.class };
 
-		Icon[] icons = new Icon[] { Check.getIcon("flag_brazil"),
-				Check.getIcon("flag_bulgaria"), Check.getIcon("flag_canada"),
-				Check.getIcon("flag_china"), Check.getIcon("flag_denmark"),
-				Check.getIcon("flag_finland"), Check.getIcon("flag_france"),
-				Check.getIcon("flag_germany"), Check.getIcon("flag_greece"),
-				Check.getIcon("flag_hungary"), Check.getIcon("flag_israel"),
-				Check.getIcon("flag_italy"), Check.getIcon("flag_japan"),
-				Check.getIcon("flag_mexico"),
-				Check.getIcon("flag_netherlands"), Check.getIcon("flag_norway") };
+		Icon[] icons = new Icon[] { 
+				Check.configure(new br(), 21, 16),
+				Check.configure(new bg(), 21, 16),
+				Check.configure(new ca(), 21, 16),
+				Check.configure(new cn(), 21, 16),
+				Check.configure(new dk(), 21, 16),
+				Check.configure(new fi(), 21, 16),
+				Check.configure(new fr(), 21, 16),
+				Check.configure(new de(), 21, 16),
+				Check.configure(new gr(), 21, 16),
+				Check.configure(new hu(), 21, 16),
+				Check.configure(new il(), 21, 16),
+				Check.configure(new it(), 21, 16),
+				Check.configure(new jp(), 21, 16),
+				Check.configure(new mx(), 21, 16),
+				Check.configure(new nl(), 21, 16),
+				Check.configure(new no(), 21, 16)
+		};
 		for (int i = 0; i < rows; i++) {
 			this.data[i][0] = "cell " + i + ":" + 0;
 			this.data[i][1] = "predef";
