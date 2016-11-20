@@ -246,12 +246,12 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements
 			this.borderColor = SubstanceColorSchemeUtilities.getColorScheme(
 					group, ColorSchemeAssociationKind.BORDER,
 					ComponentState.ENABLED).getMidColor();
-			TransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationDelegate = new TransitionAwareIcon.ColorSchemeAssociationKindDelegate() {
+			TransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationDelegate = 
+					new TransitionAwareIcon.ColorSchemeAssociationKindDelegate() {
 				@Override
 				public ColorSchemeAssociationKind getColorSchemeAssociationKind(
 						ComponentState state) {
-					if (!state.isDisabled()
-							&& (state != ComponentState.ENABLED)) {
+					if (!state.isDisabled() && (state != ComponentState.ENABLED)) {
 						// use HIGHLIGHT
 						return ColorSchemeAssociationKind.HIGHLIGHT;
 					}
