@@ -52,7 +52,7 @@
 
 	<property name="substance.basedir" value="${module.substance-swingx.basedir}/../substance" />
 
-	<property name="substance.version" value="6.2dev Uruguay" />
+	<property name="substance.version" value="7.0dev Uruguay" />
 	<property name="swingx.version" value="1.6.4" />
 
 	<path id="substance-swingx.module.bootclasspath">
