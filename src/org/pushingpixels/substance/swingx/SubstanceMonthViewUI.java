@@ -18,10 +18,12 @@
  */
 package org.pushingpixels.substance.swingx;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -67,6 +69,7 @@ import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.TimelineCallback;
@@ -797,8 +800,14 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 
 			if (isToday(calendar.getTime())) {
 				graphics.setColor(monthView.getTodayBackground());
-				graphics.drawRect(bounds.x, bounds.y, bounds.width - 1,
-						bounds.height - 1);
+				graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_ON);
+				graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+						RenderingHints.VALUE_STROKE_PURE);
+				graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getBorderStrokeWidth(
+						SubstanceSizeUtils.getComponentFontSize(this.monthView)),
+						BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+				graphics.draw(bounds);
 			}
 
 			StateTransitionTracker dayTracker = this.dayStateTransitionMultiTracker
@@ -854,6 +863,34 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 
 		}
 		super.paintDayOfMonth(g, bounds, calendar, state);
+	}
+	
+	@Override
+	protected void paintWeekOfYearSeparator(Graphics g, Calendar month) {
+		Graphics2D g2d = (Graphics2D) g.create();
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+				RenderingHints.VALUE_STROKE_PURE);
+		g2d.setStroke(new BasicStroke(SubstanceSizeUtils.getBorderStrokeWidth(
+				SubstanceSizeUtils.getComponentFontSize(this.monthView)),
+				BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+		super.paintWeekOfYearSeparator(g2d, month);
+		g2d.dispose();
+	}
+	
+	@Override
+	protected void paintDaysOfWeekSeparator(Graphics g, Calendar month) {
+		Graphics2D g2d = (Graphics2D) g.create();
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+				RenderingHints.VALUE_STROKE_PURE);
+		g2d.setStroke(new BasicStroke(SubstanceSizeUtils.getBorderStrokeWidth(
+				SubstanceSizeUtils.getComponentFontSize(this.monthView)),
+				BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
+		super.paintDaysOfWeekSeparator(g2d, month);
+		g2d.dispose();
 	}
 
 	/*
