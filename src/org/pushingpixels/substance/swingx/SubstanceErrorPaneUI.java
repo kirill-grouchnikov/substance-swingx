@@ -18,7 +18,9 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import javax.swing.*;
+import javax.swing.Icon;
+import javax.swing.JComponent;
+import javax.swing.UIManager;
 import javax.swing.plaf.ComponentUI;
 
 import org.jdesktop.swingx.JXErrorPane;

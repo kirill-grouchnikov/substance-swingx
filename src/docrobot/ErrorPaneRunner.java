@@ -21,7 +21,10 @@ package docrobot;
 import java.awt.Component;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
 import javax.swing.plaf.ComponentUI;
 
 import org.fest.swing.core.BasicRobot;

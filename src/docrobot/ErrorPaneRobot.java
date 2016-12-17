@@ -18,7 +18,10 @@
  */
 package docrobot;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,10 +31,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import org.fest.swing.core.Robot;
-import org.fest.swing.edt.*;
+import org.fest.swing.edt.GuiActionRunner;
+import org.fest.swing.edt.GuiQuery;
+import org.fest.swing.edt.GuiTask;
 import org.fest.swing.timing.Condition;
 import org.fest.swing.timing.Pause;
 import org.jdesktop.swingx.JXErrorPane;
@@ -101,7 +108,7 @@ public class ErrorPaneRobot {
 			@Override
 			protected void executeInEDT() throws Throwable {
 				try {
-					URL url = new URL("some wrong URL string");
+					new URL("some wrong URL string");
 				} catch (MalformedURLException murle) {
 					String msg = "<html>An error just happened. Possible reasons:"
 							+ "<ol><li>Development team hoped nobody would notice."

@@ -44,14 +44,14 @@ import org.jdesktop.swingx.JXMonthView;
 import org.jdesktop.swingx.plaf.MonthViewUI;
 import org.jdesktop.swingx.plaf.basic.BasicDatePickerUI;
 import org.pushingpixels.lafwidget.utils.RenderingUtils;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceConstants.Side;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities.TextComponentAware;
 import org.pushingpixels.substance.internal.utils.SubstanceDropDownButton;
 import org.pushingpixels.substance.internal.utils.SubstanceOutlineUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities.TextComponentAware;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
 
 /**
@@ -198,15 +198,14 @@ public class SubstanceDatePickerUI extends BasicDatePickerUI {
 	public void paint(Graphics g, JComponent c) {
 		Graphics2D graphics = (Graphics2D) g.create();
 
-		int componentFontSize = SubstanceSizeUtils
-				.getComponentFontSize(this.datePicker);
-		float borderDelta = SubstanceSizeUtils
-				.getBorderStrokeWidth(componentFontSize);
-		Shape contour = SubstanceOutlineUtilities.getBaseOutline(datePicker
-				.getWidth(), datePicker.getHeight(), Math.max(0, 2.0f
-				* SubstanceSizeUtils
-						.getClassicButtonCornerRadius(componentFontSize)
-				- borderDelta), null, borderDelta);
+		int componentFontSize = SubstanceSizeUtils.getComponentFontSize(this.datePicker);
+		float borderDelta = SubstanceSizeUtils.getBorderStrokeWidth();
+		Shape contour = SubstanceOutlineUtilities.getBaseOutline(datePicker.getWidth(),
+				datePicker.getHeight(),
+				Math.max(0,
+						2.0f * SubstanceSizeUtils.getClassicButtonCornerRadius(componentFontSize)
+								- borderDelta),
+				null, borderDelta);
 
 		graphics.setColor(SubstanceTextUtilities
 				.getTextBackgroundFillColor(this.datePicker));

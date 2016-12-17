@@ -21,7 +21,9 @@ package docrobot;
 import java.awt.FlowLayout;
 import java.util.Calendar;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXMonthView;
 import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;

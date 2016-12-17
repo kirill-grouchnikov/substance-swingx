@@ -56,7 +56,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
-import org.pushingpixels.substance.internal.utils.SubstanceInternalArrowButton;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
 import org.pushingpixels.substance.internal.utils.icon.TransitionAwareIcon;
@@ -200,8 +199,7 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements
 					int width, int height) {
 				Graphics2D g2d = (Graphics2D) g.create();
 
-				float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth(
-						SubstanceSizeUtils.getComponentFontSize(c));
+				float strokeWidth = SubstanceSizeUtils.getBorderStrokeWidth();
 				g2d.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_BUTT, 
 						BasicStroke.JOIN_ROUND));
 				g2d.setColor(borderColor);
@@ -247,17 +245,13 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements
 					group, ColorSchemeAssociationKind.BORDER,
 					ComponentState.ENABLED).getMidColor();
 			TransitionAwareIcon.ColorSchemeAssociationKindDelegate colorSchemeAssociationDelegate = 
-					new TransitionAwareIcon.ColorSchemeAssociationKindDelegate() {
-				@Override
-				public ColorSchemeAssociationKind getColorSchemeAssociationKind(
-						ComponentState state) {
-					if (!state.isDisabled() && (state != ComponentState.ENABLED)) {
-						// use HIGHLIGHT
-						return ColorSchemeAssociationKind.HIGHLIGHT;
-					}
-					return ColorSchemeAssociationKind.MARK;
-				}
-			};
+					(ComponentState state) -> {
+						if (!state.isDisabled() && (state != ComponentState.ENABLED)) {
+							// use HIGHLIGHT
+							return ColorSchemeAssociationKind.HIGHLIGHT;
+						}
+						return ColorSchemeAssociationKind.MARK;
+					};
 			this.expandedIcon = new TransitionAwareIcon(group,
 					() -> (TransitionAwareUI) group.getUI(),
 					(SubstanceColorScheme scheme) ->

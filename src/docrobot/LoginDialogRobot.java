@@ -18,7 +18,10 @@
  */
 package docrobot;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +33,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 
 import org.fest.swing.core.Robot;
-import org.fest.swing.edt.*;
+import org.fest.swing.edt.GuiActionRunner;
+import org.fest.swing.edt.GuiQuery;
+import org.fest.swing.edt.GuiTask;
 import org.fest.swing.timing.Condition;
 import org.fest.swing.timing.Pause;
 import org.jdesktop.swingx.JXLoginPane;
@@ -167,24 +172,6 @@ public class LoginDialogRobot {
 		long end = System.currentTimeMillis();
 		System.out.println(this.getClass().getSimpleName() + " ["
 				+ this.skin.getDisplayName() + "] : " + (end - start) + "ms");
-	}
-
-	private boolean dismiss(Component comp) {
-		if (comp instanceof JButton) {
-			JButton button = (JButton) comp;
-			if ("Login".equals(button.getText())) {
-				button.doClick();
-				return true;
-			}
-		}
-		if (comp instanceof Container) {
-			Container cont = (Container) comp;
-			for (int i = 0; i < cont.getComponentCount(); i++) {
-				if (dismiss(cont.getComponent(i)))
-					return true;
-			}
-		}
-		return false;
 	}
 
 	/**

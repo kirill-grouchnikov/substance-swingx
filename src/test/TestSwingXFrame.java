@@ -126,30 +126,15 @@ public class TestSwingXFrame extends JFrame {
 	TestSwingXFrame() {
 		super("SwingX testing bed");
 
-		this.setIconImage(SubstanceLogo
-				.getLogoImage(SubstanceLookAndFeel.getCurrentSkin(
-						this.getRootPane())
+		this.setIconImage(
+				SubstanceLogo.getLogoImage(SubstanceLookAndFeel.getCurrentSkin(this.getRootPane())
 						.getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-								ColorSchemeAssociationKind.FILL,
-								ComponentState.ENABLED)));
-		SubstanceLookAndFeel
-				.registerSkinChangeListener(new SkinChangeListener() {
-					@Override
-					public void skinChanged() {
-						SwingUtilities.invokeLater(new Runnable() {
-							@Override
-							public void run() {
-								setIconImage(SubstanceLogo
-										.getLogoImage(SubstanceLookAndFeel
-												.getCurrentSkin(getRootPane())
-												.getColorScheme(
-														DecorationAreaType.PRIMARY_TITLE_PANE,
-														ColorSchemeAssociationKind.FILL,
-														ComponentState.ENABLED)));
-							}
-						});
-					}
-				});
+								ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+		SubstanceLookAndFeel.registerSkinChangeListener(
+				() -> SwingUtilities.invokeLater(() -> setIconImage(SubstanceLogo.getLogoImage(
+						SubstanceLookAndFeel.getCurrentSkin(getRootPane()).getColorScheme(
+								DecorationAreaType.PRIMARY_TITLE_PANE,
+								ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
 
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, 4);
@@ -280,7 +265,7 @@ public class TestSwingXFrame extends JFrame {
 		errorPaneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					URL url = new URL("some wrong URL string");
+					new URL("some wrong URL string");
 				} catch (MalformedURLException murle) {
 					String msg = "<html>An error just happened. Possible reasons:"
 							+ "<ol><li>Development team hoped nobody would notice."

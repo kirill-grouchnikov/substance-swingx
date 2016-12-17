@@ -21,7 +21,11 @@ package docrobot;
 import java.awt.BorderLayout;
 import java.net.URL;
 
-import javax.swing.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXHeader;
 import org.pushingpixels.substance.api.DecorationAreaType;

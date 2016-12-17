@@ -18,20 +18,35 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.Window;
 import java.awt.image.BufferedImage;
 
-import javax.swing.*;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JRootPane;
+import javax.swing.JSlider;
+import javax.swing.SwingUtilities;
 import javax.swing.plaf.ComponentUI;
 
 import org.jdesktop.swingx.JXStatusBar;
 import org.jdesktop.swingx.plaf.basic.BasicStatusBarUI;
 import org.pushingpixels.lafwidget.animation.effects.GhostPaintingUtils;
 import org.pushingpixels.lafwidget.contrib.intellij.UIUtil;
-import org.pushingpixels.substance.api.*;
+import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
-import org.pushingpixels.substance.internal.utils.*;
+import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
+import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 
 /**
  * Substance-consistent UI delegate for {@link JXStatusBar}.
@@ -144,8 +159,7 @@ public class SubstanceStatusBarUI extends BasicStatusBarUI {
 		int totalSeparatorWidth = this.getSeparatorWidth();
 		int componentFontSize = SubstanceSizeUtils
 				.getComponentFontSize(this.statusBar);
-		int lineSeparatorWidth = (int) (2 * SubstanceSizeUtils
-				.getBorderStrokeWidth(componentFontSize));
+		int lineSeparatorWidth = (int) (2 * SubstanceSizeUtils.getBorderStrokeWidth());
 		int widthLeft = (totalSeparatorWidth - lineSeparatorWidth - result.left - result.right);
 		if (widthLeft > 0) {
 			result.left += widthLeft / 2;

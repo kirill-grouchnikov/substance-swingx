@@ -63,7 +63,6 @@ import org.pushingpixels.substance.api.SubstanceColorScheme;
 import org.pushingpixels.substance.internal.animation.StateTransitionMultiTracker;
 import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
-import org.pushingpixels.substance.internal.animation.StateTransitionTracker.RepaintCallback;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
@@ -72,7 +71,6 @@ import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
 import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.TimelineCallback;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
 
 /**
@@ -804,8 +802,7 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 						RenderingHints.VALUE_ANTIALIAS_ON);
 				graphics.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
 						RenderingHints.VALUE_STROKE_PURE);
-				graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getBorderStrokeWidth(
-						SubstanceSizeUtils.getComponentFontSize(this.monthView)),
+				graphics.setStroke(new BasicStroke(SubstanceSizeUtils.getBorderStrokeWidth(),
 						BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
 				graphics.draw(bounds);
 			}
@@ -872,8 +869,7 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
 				RenderingHints.VALUE_STROKE_PURE);
-		g2d.setStroke(new BasicStroke(SubstanceSizeUtils.getBorderStrokeWidth(
-				SubstanceSizeUtils.getComponentFontSize(this.monthView)),
+		g2d.setStroke(new BasicStroke(SubstanceSizeUtils.getBorderStrokeWidth(),
 				BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
 		super.paintWeekOfYearSeparator(g2d, month);
 		g2d.dispose();
@@ -886,8 +882,7 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
 				RenderingHints.VALUE_STROKE_PURE);
-		g2d.setStroke(new BasicStroke(SubstanceSizeUtils.getBorderStrokeWidth(
-				SubstanceSizeUtils.getComponentFontSize(this.monthView)),
+		g2d.setStroke(new BasicStroke(SubstanceSizeUtils.getBorderStrokeWidth(),
 				BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND));
 		super.paintDaysOfWeekSeparator(g2d, month);
 		g2d.dispose();

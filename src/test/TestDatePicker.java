@@ -68,24 +68,11 @@ public class TestDatePicker extends JFrame {
 						.getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
 								ColorSchemeAssociationKind.FILL,
 								ComponentState.ENABLED)));
-		SubstanceLookAndFeel
-				.registerSkinChangeListener(new SkinChangeListener() {
-					@Override
-					public void skinChanged() {
-						SwingUtilities.invokeLater(new Runnable() {
-							@Override
-							public void run() {
-								setIconImage(SubstanceLogo
-										.getLogoImage(SubstanceLookAndFeel
-												.getCurrentSkin(getRootPane())
-												.getColorScheme(
-														DecorationAreaType.PRIMARY_TITLE_PANE,
-														ColorSchemeAssociationKind.FILL,
-														ComponentState.ENABLED)));
-							}
-						});
-					}
-				});
+		SubstanceLookAndFeel.registerSkinChangeListener(
+				() -> SwingUtilities.invokeLater(() -> setIconImage(SubstanceLogo.getLogoImage(
+						SubstanceLookAndFeel.getCurrentSkin(getRootPane()).getColorScheme(
+								DecorationAreaType.PRIMARY_TITLE_PANE,
+								ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));				
 
 		JMenuBar jmb = new JMenuBar();
 		jmb.add(SampleMenuFactory.getSkinMenu());

@@ -3,7 +3,10 @@ package test.contrib;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.JTree;
+import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXPanel;
 
