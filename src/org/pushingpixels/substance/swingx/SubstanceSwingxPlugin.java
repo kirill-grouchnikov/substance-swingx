@@ -217,8 +217,7 @@ public class SubstanceSwingxPlugin implements LafComponentPlugin {
 						.getSize())),
 
 				"JXLoginPane.bannerForeground",
-				new ColorUIResource(SubstanceColorUtilities
-						.getNegativeColor(foregroundColor)),
+				new ColorUIResource(SubstanceColorUtilities.invertColor(foregroundColor)),
 
 				"JXLoginPane.bannerLightBackground",
 				new ColorUIResource(
