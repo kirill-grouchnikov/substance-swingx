@@ -142,11 +142,6 @@ public class StatusBarFrame extends JFrame {
 	public static void main(String[] args) throws Exception {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SubstanceLookAndFeel.setSkin(new TwilightSkin());
-		// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new StatusBarFrame().setVisible(true);
-			}
-		});
+		SwingUtilities.invokeLater(() -> new StatusBarFrame().setVisible(true));
 	}
 }

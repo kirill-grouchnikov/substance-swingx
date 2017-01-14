@@ -22,7 +22,6 @@ import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
-import org.pushingpixels.substance.api.skin.SkinChangeListener;
 
 import test.check.SampleMenuFactory;
 

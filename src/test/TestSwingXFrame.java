@@ -72,7 +72,6 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.fonts.FontPolicy;
 import org.pushingpixels.substance.api.fonts.FontSet;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.api.skin.SkinChangeListener;
 
 import test.check.SampleMenuFactory;
 import test.check.statusbar.FontSizePanel;

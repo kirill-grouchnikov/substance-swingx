@@ -50,11 +50,6 @@ public class MonthViewFrame extends JFrame {
 	public static void main(String[] args) throws Exception {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());
-		// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new MonthViewFrame().setVisible(true);
-			}
-		});
+		SwingUtilities.invokeLater(() -> new MonthViewFrame().setVisible(true));
 	}
 }

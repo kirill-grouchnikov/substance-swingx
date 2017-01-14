@@ -129,11 +129,6 @@ public class TaskPaneFrame extends JFrame {
 	public static void main(String[] args) throws Exception {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());
-		// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new TaskPaneFrame().setVisible(true);
-			}
-		});
+		SwingUtilities.invokeLater(() -> new TaskPaneFrame().setVisible(true));
 	}
 }

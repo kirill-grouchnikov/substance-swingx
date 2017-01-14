@@ -62,10 +62,6 @@ public class HeaderFrame extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		UIManager.setLookAndFeel(new SubstanceBusinessBlackSteelLookAndFeel());
 		// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new HeaderFrame().setVisible(true);
-			}
-		});
+		SwingUtilities.invokeLater(() -> new HeaderFrame().setVisible(true));
 	}
 }
