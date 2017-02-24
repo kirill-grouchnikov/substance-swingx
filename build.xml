@@ -52,8 +52,9 @@
 
 	<property name="substance.basedir" value="${module.substance-swingx.basedir}/../substance" />
 
-	<property name="substance.version" value="7.0dev Uruguay" />
-	<property name="swingx.version" value="1.6.4" />
+	<property name="substance.version" value="7.0" />
+    <property name="swingx.version" value="1.6.4" />
+    <property name="trident.version" value="1.4" />
 
 	<path id="substance-swingx.module.bootclasspath">
 		<!-- Paths to be included in compilation bootclasspath -->
@@ -64,10 +65,10 @@
 
 	<path id="substance-swingx.module.classpath">
 		<path refid="${module.jdk.classpath.substance-swingx}" />
-		<pathelement location="${substance.basedir}/drop/substance.jar" />
-		<pathelement location="${substance.basedir}/drop/substance-tst.jar" />
+		<pathelement location="${substance.basedir}/drop/substance-${substance.version}.jar" />
+		<pathelement location="${substance.basedir}/drop/substance-tst-${substance.version}.jar" />
 		<pathelement location="${module.substance-swingx.basedir}/lib/swingx-all-1.6.4.jar" />
-		<pathelement location="${substance.basedir}/lib/trident.jar" />
+		<pathelement location="${substance.basedir}/lib/trident-${trident.version}.jar" />
 		<pathelement location="${substance.basedir}/lib/build/forms-1.2.0.jar" />
 		<pathelement location="${substance.basedir}/lib/test/fest-swing-1.2.jar" />
 		<pathelement location="${substance.basedir}/lib/test/fest-assert-1.2.jar" />
@@ -141,9 +142,9 @@
 
 	<target name="jar-bin" description="create runtime jar">
 		<mkdir dir="${substance-swingx.drop.dir}" />
-		<delete file="${substance-swingx.drop.dir}/substance-swingx.jar" />
+		<delete file="${substance-swingx.drop.dir}/substance-swingx-${substance.version}.jar" />
 
-		<jar compress="true" destfile="${substance-swingx.drop.dir}/substance-swingx.jar">
+		<jar compress="true" destfile="${substance-swingx.drop.dir}/substance-swingx-${substance.version}.jar">
 			<fileset dir="${substance-swingx.output.dir}/" excludes="docrobot/** test/**" />
 			<fileset dir="${module.substance-swingx.basedir}/" includes="resources/**" />
 			<manifest>
@@ -152,13 +153,12 @@
 				<attribute name="Substance-SwingX-BuildStamp" value="${build.time}" />
 			</manifest>
 		</jar>
-		<copy file="${substance-swingx.drop.dir}/substance-swingx.jar" todir="${module.substance-swingx.basedir}/../substance/lib/build/" />
-		<copy file="${substance-swingx.drop.dir}/substance-swingx.jar" todir="${module.substance-swingx.basedir}/www/webstart" />
+		<copy file="${substance-swingx.drop.dir}/substance-swingx-${substance.version}.jar" todir="${module.substance-swingx.basedir}/../substance/lib/build/" />
 	</target>
 
 	<target name="jar-bin-tst" description="create test runtime jar">
-		<delete file="${substance-swingx.drop.dir}/substance-swingx-tst.jar" />
-		<jar destfile="${substance-swingx.drop.dir}/substance-swingx-tst.jar">
+		<delete file="${substance-swingx.drop.dir}/substance-swingx-tst-${substance.version}.jar" />
+		<jar destfile="${substance-swingx.drop.dir}/substance-swingx-tst-${substance.version}.jar">
 			<fileset dir="${substance-swingx.output.dir}/" includes="docrobot/** test/**/*.class" />
 			<fileset dir="${substance-swingx.src.dir}/" includes="test/resource/**" />
 			<manifest>
@@ -167,7 +167,6 @@
 				<attribute name="Substance-SwingX-BuildStamp" value="${build.time}" />
 			</manifest>
 		</jar>
-		<copy file="${substance-swingx.drop.dir}/substance-swingx-tst.jar" todir="${module.substance-swingx.basedir}/www/webstart" />
 	</target>
 
 	<target name="distro" description="create distribution">
@@ -176,13 +175,6 @@
 			<fileset dir="${module.substance-swingx.basedir}">
 				<include name="lib/**" />
 				<include name="src/**" />
-				<!--
-				<include name="drop/**" />
-				<include name="docs/**" />
-				<include name="www/*.html" />
-				<include name="www/docs/**" />
-				<include name="www/images/**" />
-				-->
 				<include name="build.xml" />
 				<include name="build.properties" />
 			</fileset>

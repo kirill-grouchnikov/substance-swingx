@@ -21,13 +21,10 @@ package docrobot;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.Box;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -38,8 +35,25 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 
 import org.jdesktop.swingx.JXStatusBar;
+import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.skin.GeminiSkin;
+import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
 import org.pushingpixels.substance.api.skin.TwilightSkin;
+
+import test.SubstanceLogo;
+import test.check.svg.Edit_copy;
+import test.check.svg.Edit_cut;
+import test.check.svg.Edit_delete;
+import test.check.svg.Edit_paste;
+import test.check.svg.Edit_select_all;
+import test.check.svg.Format_justify_center;
+import test.check.svg.Format_justify_fill;
+import test.check.svg.Format_justify_left;
+import test.check.svg.Format_justify_right;
+import test.check.svg.Process_stop;
 
 public class StatusBarFrame extends JFrame {
 	public StatusBarFrame() {
@@ -82,6 +96,21 @@ public class StatusBarFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(500, 350);
 		this.setLocationRelativeTo(null);
+		
+        setIconImage(SubstanceLogo.getLogoImage(SubstanceLookAndFeel
+                .getCurrentSkin(this.getRootPane()).getColorScheme(
+                        DecorationAreaType.PRIMARY_TITLE_PANE,
+                        ColorSchemeAssociationKind.FILL,
+                        ComponentState.ENABLED)));
+
+        SubstanceLookAndFeel.registerSkinChangeListener(() ->
+        SwingUtilities.invokeLater(() ->
+                setIconImage(SubstanceLogo.getLogoImage(
+                        SubstanceLookAndFeel.getCurrentSkin(getRootPane())
+                                .getColorScheme(
+                                        DecorationAreaType.PRIMARY_TITLE_PANE,
+                                        ColorSchemeAssociationKind.FILL,
+                                        ComponentState.ENABLED)))));
 	}
 
 	public static JToolBar getToolbar(String label, int size) {
@@ -89,35 +118,30 @@ public class StatusBarFrame extends JFrame {
 		// toolBar.setLayout(new BoxLayout(toolBar,BoxLayout.LINE_AXIS));
 		// toolBar.setFloatable(false);
 
-		JButton buttonCut = new JButton(getIcon(size + "/edit-cut"));
+		JButton buttonCut = new JButton(Edit_cut.of(size, size));
 		toolBar.add(buttonCut);
-		JButton buttonCopy = new JButton(getIcon(size + "/edit-copy"));
+		JButton buttonCopy = new JButton(Edit_copy.of(size, size));
 		toolBar.add(buttonCopy);
-		JButton buttonPaste = new JButton(getIcon(size + "/edit-paste"));
+		JButton buttonPaste = new JButton(Edit_paste.of(size, size));
 		toolBar.add(buttonPaste);
-		JButton buttonSelectAll = new JButton(
-				getIcon(size + "/edit-select-all"));
+		JButton buttonSelectAll = new JButton(Edit_select_all.of(size, size));
 		toolBar.add(buttonSelectAll);
-		JButton buttonDelete = new JButton(getIcon(size + "/edit-delete"));
+		JButton buttonDelete = new JButton(Edit_delete.of(size, size));
 		toolBar.add(buttonDelete);
 		toolBar.addSeparator();
 
-		JToggleButton buttonFormatCenter = new JToggleButton(getIcon(size
-				+ "/format-justify-center"));
+		JToggleButton buttonFormatCenter = new JToggleButton(Format_justify_center.of(size, size));
 		toolBar.add(buttonFormatCenter);
-		JToggleButton buttonFormatLeft = new JToggleButton(getIcon(size
-				+ "/format-justify-left"));
+		JToggleButton buttonFormatLeft = new JToggleButton(Format_justify_left.of(size, size));
 		toolBar.add(buttonFormatLeft);
-		JToggleButton buttonFormatRight = new JToggleButton(getIcon(size
-				+ "/format-justify-right"));
+		JToggleButton buttonFormatRight = new JToggleButton(Format_justify_right.of(size, size));
 		toolBar.add(buttonFormatRight);
-		JToggleButton buttonFormatFill = new JToggleButton(getIcon(size
-				+ "/format-justify-fill"));
+		JToggleButton buttonFormatFill = new JToggleButton(Format_justify_fill.of(size, size));
 		toolBar.add(buttonFormatFill);
 		toolBar.addSeparator();
 
 		toolBar.add(Box.createGlue());
-		JButton buttonExit = new JButton(getIcon(size + "/process-stop"));
+		JButton buttonExit = new JButton(Process_stop.of(size, size));
 		buttonExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -128,20 +152,11 @@ public class StatusBarFrame extends JFrame {
 		return toolBar;
 	}
 
-	public static Icon getIcon(String iconName) {
-		ClassLoader cl = Thread.currentThread().getContextClassLoader();
-		URL url = cl.getResource("test/check/icons/" + iconName + ".gif");
-		if (url != null)
-			return new ImageIcon(url);
-		url = cl.getResource("test/check/icons/" + iconName + ".png");
-		if (url != null)
-			return new ImageIcon(url);
-		return null;
-	}
-
 	public static void main(String[] args) throws Exception {
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		SubstanceLookAndFeel.setSkin(new TwilightSkin());
-		SwingUtilities.invokeLater(() -> new StatusBarFrame().setVisible(true));
+		SwingUtilities.invokeLater(() -> {
+	        SubstanceLookAndFeel.setSkin(new GeminiSkin());
+	        new StatusBarFrame().setVisible(true);
+		});
 	}
 }
