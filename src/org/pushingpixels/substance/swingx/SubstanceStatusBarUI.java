@@ -123,7 +123,7 @@ public class SubstanceStatusBarUI extends BasicStatusBarUI {
 							ComponentState.ENABLED);
 			BufferedImage resizeImage = SubstanceImageCreator
 					.getResizeGripImage(bar, scheme, dim, false);
-			int scaleFactor = UIUtil.isRetina() ? 2 : 1;
+			int scaleFactor = UIUtil.getScaleFactor();
 			g.drawImage(resizeImage, bar.getWidth() - dim, bar.getHeight() - dim,
 					resizeImage.getWidth() / scaleFactor, resizeImage.getHeight() / scaleFactor,
 					null);
