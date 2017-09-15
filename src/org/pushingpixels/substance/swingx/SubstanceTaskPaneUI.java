@@ -255,17 +255,17 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements
 			this.expandedIcon = new TransitionAwareIcon(group,
 					() -> (TransitionAwareUI) group.getUI(),
 					(SubstanceColorScheme scheme) ->
-							SubstanceImageCreator.getDoubleArrowIconDelta(
+							SubstanceImageCreator.getDoubleArrowIcon(
 									SubstanceSizeUtils.getComponentFontSize(group), 
-									0, 3, 0, SwingConstants.NORTH, scheme),
+									SwingConstants.NORTH, scheme),
 					colorSchemeAssociationDelegate,
 					"substance.swingx.taskpane.expanded");
 			this.collapsedIcon = new TransitionAwareIcon(group,
 					() -> (TransitionAwareUI) group.getUI(),
 					(SubstanceColorScheme scheme) ->
-					SubstanceImageCreator.getDoubleArrowIconDelta(
+					SubstanceImageCreator.getDoubleArrowIcon(
 							SubstanceSizeUtils.getComponentFontSize(group), 
-							0, 3, 0, SwingConstants.SOUTH, scheme),
+							SwingConstants.SOUTH, scheme),
 					colorSchemeAssociationDelegate,
 					"substance.swingx.taskpane.collapsed");
 
