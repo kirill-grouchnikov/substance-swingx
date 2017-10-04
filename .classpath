@@ -5,7 +5,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/laf-plugin"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/laf-widget"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/substance"/>
-	<classpathentry kind="lib" path="/Users/kirillg/Projects/substance/lib/trident-1.4.jar"/>
+	<classpathentry kind="lib" path="/substance/lib/trident-1.4.jar"/>
 	<classpathentry kind="lib" path="/substance/lib/build/forms-1.2.0.jar"/>
 	<classpathentry kind="lib" path="/substance/lib/test/fest-assert-1.2.jar"/>
 	<classpathentry kind="lib" path="/substance/lib/test/fest-reflect-1.2.jar"/>
