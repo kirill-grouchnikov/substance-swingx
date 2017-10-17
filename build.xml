@@ -52,7 +52,8 @@
 
 	<property name="substance.basedir" value="${module.substance-swingx.basedir}/../substance" />
 
-	<property name="substance.version" value="7.1.00-rc" />
+	<property name="substance.version" value="7.1.00" />
+    <property name="substance.versionKey" value="7.1final Vermont" />
     <property name="swingx.version" value="1.6.4" />
     <property name="trident.version" value="1.4" />
 
@@ -149,7 +150,7 @@
 			<fileset dir="${substance-swingx.output.dir}/" excludes="docrobot/** test/**" />
 			<fileset dir="${module.substance-swingx.basedir}/" includes="resources/**" />
 			<manifest>
-				<attribute name="Substance-Version" value="${substance.version}" />
+				<attribute name="Substance-Version" value="${substance.versionKey}" />
 				<attribute name="SwingX-Version" value="${swingx.version}" />
 				<attribute name="Substance-SwingX-BuildStamp" value="${build.time}" />
 			</manifest>
@@ -163,7 +164,7 @@
 			<fileset dir="${substance-swingx.output.dir}/" includes="docrobot/** test/**/*.class" />
 			<fileset dir="${substance-swingx.src.dir}/" includes="test/resource/**" />
 			<manifest>
-				<attribute name="Substance-Version" value="${substance.version}" />
+				<attribute name="Substance-Version" value="${substance.versionKey}" />
 				<attribute name="SwingX-Version" value="${swingx.version}" />
 				<attribute name="Substance-SwingX-BuildStamp" value="${build.time}" />
 			</manifest>

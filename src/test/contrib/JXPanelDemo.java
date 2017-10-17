@@ -9,6 +9,8 @@ import javax.swing.JTree;
 import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXPanel;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /*
  * InternalFrameDemo.java requires:
@@ -49,8 +51,7 @@ public class JXPanelDemo extends JFrame {
 		// Make sure we have nice window decorations.
 		// JFrame.setDefaultLookAndFeelDecorated(true);
 		try {
-			UIManager
-					.setLookAndFeel("org.jvnet.substance.SubstanceLookAndFeel");
+		    SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
 			// Create and set up the window.
 			JXPanelDemo frame = new JXPanelDemo();
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
