@@ -117,7 +117,7 @@ public class SubstanceStatusBarUI extends BasicStatusBarUI {
 				.toShowExtraWidgets(rootPane)
 				&& isResizable;
 		if (hasResizeGrip) {
-			int dim = bar.getHeight() * 2 / 3;
+			int dim = bar.getHeight() / 2;
 			SubstanceColorScheme scheme = SubstanceColorSchemeUtilities
 					.getColorScheme(bar, ColorSchemeAssociationKind.SEPARATOR,
 							ComponentState.ENABLED);
