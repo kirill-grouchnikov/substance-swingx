@@ -71,9 +71,6 @@
         <pathelement location="${substance.basedir}/lib/trident-${trident.version}.jar" />
 		<pathelement location="${module.substance-swingx.basedir}/lib/swingx-all-1.6.4.jar" />
 		<pathelement location="${substance.basedir}/lib/trident-${trident.version}.jar" />
-		<pathelement location="${substance.basedir}/lib/build/forms-1.2.0.jar" />
-		<pathelement location="${substance.basedir}/lib/test/fest-swing-1.2.jar" />
-		<pathelement location="${substance.basedir}/lib/test/fest-assert-1.2.jar" />
 	</path>
 
 	<patternset id="excluded.from.module.substance-swingx" />
@@ -89,14 +86,7 @@
 		</dirset>
 	</path>
 
-	<path id="substance-swingx.module.testsourcepath">
-		<dirset dir="${substance-swingx.src.dir}">
-			<include name="docrobot" />
-			<include name="test" />
-		</dirset>
-	</path>
-
-	<target name="compile.module.substance-swingx" depends="compile.module.substance-swingx.production,compile.module.substance-swingx.tests" description="compile module substance-swingx" />
+	<target name="compile.module.substance-swingx" depends="compile.module.substance-swingx.production" description="compile module substance-swingx" />
 
 	<target name="compile.module.substance-swingx.production" description="compile module substance-swingx production classes">
 		<mkdir dir="${substance-swingx.output.dir}" />
@@ -109,24 +99,6 @@
 		</javac>
 		<copy todir="${substance-swingx.output.dir}">
 			<fileset dir="${substance-swingx.src.dir}">
-				<patternset refid="javac.resources" />
-				<type type="file" />
-				<patternset refid="excluded.from.compilation.substance-swingx" />
-			</fileset>
-		</copy>
-	</target>
-
-	<target name="compile.module.substance-swingx.tests" description="compile module substance-swingx test classes" unless="skip.tests">
-		<mkdir dir="${substance-swingx.output.dir}" />
-		<javac source="${javac.source}" target="${javac.target}" encoding="${javac.encoding}" destdir="${substance-swingx.output.dir}" debug="${javac.debug}" nowarn="${javac.generate.no.warnings}" memoryMaximumSize="${javac.max.memory}" fork="true">
-			<compilerarg line="${javac.args.substance-swingx}" />
-			<bootclasspath refid="substance-swingx.module.bootclasspath" />
-			<classpath refid="substance-swingx.module.classpath" />
-			<src refid="substance-swingx.module.testsourcepath" />
-			<patternset refid="excluded.from.compilation.substance-swingx" />
-		</javac>
-		<copy todir="${substance-swingx.output.dir}/test">
-			<fileset dir="${substance-swingx.src.dir}/test">
 				<patternset refid="javac.resources" />
 				<type type="file" />
 				<patternset refid="excluded.from.compilation.substance-swingx" />
@@ -147,22 +119,8 @@
 		<delete file="${substance-swingx.drop.dir}/${substance.version}/substance-swingx-${substance.version}.jar" />
 
 		<jar compress="true" destfile="${substance-swingx.drop.dir}/${substance.version}/substance-swingx-${substance.version}.jar">
-			<fileset dir="${substance-swingx.output.dir}/" excludes="docrobot/** test/**" />
+			<fileset dir="${substance-swingx.output.dir}/" />
 			<fileset dir="${module.substance-swingx.basedir}/" includes="resources/**" />
-			<manifest>
-				<attribute name="Substance-Version" value="${substance.versionKey}" />
-				<attribute name="SwingX-Version" value="${swingx.version}" />
-				<attribute name="Substance-SwingX-BuildStamp" value="${build.time}" />
-			</manifest>
-		</jar>
-		<copy file="${substance-swingx.drop.dir}/${substance.version}/substance-swingx-${substance.version}.jar" todir="${module.substance-swingx.basedir}/../substance/lib/build/" />
-	</target>
-
-	<target name="jar-bin-tst" description="create test runtime jar">
-		<delete file="${substance-swingx.drop.dir}/${substance.version}/substance-swingx-tst-${substance.version}.jar" />
-		<jar destfile="${substance-swingx.drop.dir}/${substance.version}/substance-swingx-tst-${substance.version}.jar">
-			<fileset dir="${substance-swingx.output.dir}/" includes="docrobot/** test/**/*.class" />
-			<fileset dir="${substance-swingx.src.dir}/" includes="test/resource/**" />
 			<manifest>
 				<attribute name="Substance-Version" value="${substance.versionKey}" />
 				<attribute name="SwingX-Version" value="${swingx.version}" />
@@ -193,7 +151,7 @@
 		<echo message="Ant version: ${ant.version}" />
 	</target>
 
-	<target name="jar" depends="jar-bin, jar-bin-tst" description="create all jars" />
+	<target name="jar" depends="jar-bin" description="create all jars" />
 
 	<target name="clean" depends="clean.module.substance-swingx" description="cleanup all" />
 

@@ -44,11 +44,11 @@ import org.jdesktop.swingx.JXTipOfTheDay;
 import org.jdesktop.swingx.JXTitledPanel;
 import org.jdesktop.swingx.painter.Painter;
 import org.jdesktop.swingx.plaf.PainterUIResource;
-import org.pushingpixels.lafplugin.LafComponentPlugin;
 import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.SubstanceComponentPlugin;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.fonts.FontSet;
@@ -66,7 +66,7 @@ import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
  * 
  * @author Kirill Grouchnikov
  */
-public class SubstanceSwingxPlugin implements LafComponentPlugin {
+public class SubstanceSwingxPlugin implements SubstanceComponentPlugin {
 
 	/**
 	 * Creates a plugin instance.
@@ -74,8 +74,8 @@ public class SubstanceSwingxPlugin implements LafComponentPlugin {
 	public SubstanceSwingxPlugin() {
 	}
 
-	public Object[] getDefaults(Object mSkin) {
-		SubstanceSkin skin = (SubstanceSkin) mSkin;
+	@Override
+	public Object[] getDefaults(SubstanceSkin skin) {
 		final SubstanceColorScheme mainActiveScheme = skin
 				.getActiveColorScheme(DecorationAreaType.NONE);
 		SubstanceColorScheme mainEnabledScheme = skin
