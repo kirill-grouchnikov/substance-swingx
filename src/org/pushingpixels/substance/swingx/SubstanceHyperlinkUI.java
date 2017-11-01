@@ -26,8 +26,8 @@ import javax.swing.plaf.ComponentUI;
 
 import org.jdesktop.swingx.JXHyperlink;
 import org.jdesktop.swingx.plaf.basic.BasicHyperlinkUI;
-import org.pushingpixels.lafwidget.utils.RenderingUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 
 /**
  * Substance-consistent UI delegate for {@link JXHyperlink}.

@@ -22,8 +22,8 @@ import java.awt.geom.Point2D;
 import javax.swing.Icon;
 import javax.swing.plaf.UIResource;
 
-import org.pushingpixels.lafwidget.icon.IsHiDpiAware;
-import org.pushingpixels.lafwidget.icon.IsResizable;
+import org.pushingpixels.substance.internal.hidpi.IsHiDpiAware;
+import org.pushingpixels.substance.internal.hidpi.IsResizable;
 
 /**
  * This class has been automatically generated using <a

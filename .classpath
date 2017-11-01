@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/laf-widget"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/substance"/>
 	<classpathentry kind="lib" path="/substance/lib/trident-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/swingx-all-1.6.4.jar" sourcepath="/Users/kirillg/Projects/thirdparty/swingx-all-1.6.4-sources.jar"/>

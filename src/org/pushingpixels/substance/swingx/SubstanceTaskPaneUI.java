@@ -41,7 +41,6 @@ import javax.swing.plaf.ComponentUI;
 import org.jdesktop.swingx.JXTaskPane;
 import org.jdesktop.swingx.icon.EmptyIcon;
 import org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI;
-import org.pushingpixels.lafwidget.LafWidgetUtilities;
 import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.DecorationAreaType;
@@ -51,6 +50,7 @@ import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
+import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.substance.internal.utils.RolloverControlListener;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
@@ -328,7 +328,7 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements
 								ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
 								activeState);
 
-				graphics.setComposite(LafWidgetUtilities.getAlphaComposite(
+				graphics.setComposite(WidgetUtilities.getAlphaComposite(
 						group, contribution, g));
 				HighlightPainterUtils.paintHighlight(graphics, null, group,
 						new Rectangle(0, 0, group.getWidth(),

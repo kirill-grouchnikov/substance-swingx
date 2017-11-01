@@ -25,8 +25,8 @@ import javax.swing.plaf.ComponentUI;
 
 import org.jdesktop.swingx.JXErrorPane;
 import org.jdesktop.swingx.plaf.basic.BasicErrorPaneUI;
-import org.pushingpixels.lafwidget.animation.AnimationConfigurationManager;
-import org.pushingpixels.lafwidget.animation.AnimationFacet;
+import org.pushingpixels.substance.api.AnimationConfigurationManager;
+import org.pushingpixels.substance.api.AnimationFacet;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.icon.GlowingIcon;

@@ -52,10 +52,8 @@ import org.jdesktop.swingx.event.DateSelectionEvent;
 import org.jdesktop.swingx.event.DateSelectionListener;
 import org.jdesktop.swingx.plaf.basic.BasicMonthViewUI;
 import org.jdesktop.swingx.plaf.basic.CalendarState;
-import org.pushingpixels.lafwidget.LafWidgetUtilities;
-import org.pushingpixels.lafwidget.animation.AnimationConfigurationManager;
-import org.pushingpixels.lafwidget.animation.AnimationFacet;
-import org.pushingpixels.lafwidget.utils.RenderingUtils;
+import org.pushingpixels.substance.api.AnimationConfigurationManager;
+import org.pushingpixels.substance.api.AnimationFacet;
 import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.ComponentStateFacet;
@@ -65,11 +63,13 @@ import org.pushingpixels.substance.internal.animation.StateTransitionTracker;
 import org.pushingpixels.substance.internal.animation.TransitionAwareUI;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.HighlightPainterUtils;
+import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceColorSchemeUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.UIThreadTimelineCallbackAdapter;
 
@@ -262,7 +262,7 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 				// + monthView.getSelectionModel().getSelection().size());
 
 				// try {
-				boolean hasSelectionAnimations = !LafWidgetUtilities
+				boolean hasSelectionAnimations = !WidgetUtilities
 						.hasNoAnimations(monthView, AnimationFacet.SELECTION);
 
 				Calendar cal = monthView.getCalendar();
@@ -722,7 +722,7 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 				: ComponentState.DISABLED_UNSELECTED;
 		float fillAlpha = SubstanceColorSchemeUtilities.getAlpha(monthView,
 				componentState);
-		g2d.setComposite(LafWidgetUtilities.getAlphaComposite(monthView,
+		g2d.setComposite(WidgetUtilities.getAlphaComposite(monthView,
 				fillAlpha, g));
 		SubstanceColorScheme bgFillScheme = SubstanceColorSchemeUtilities
 				.getColorScheme(monthView,
@@ -733,7 +733,7 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 						componentState);
 		HighlightPainterUtils.paintHighlight(g2d, null, monthView, page, 0.5f,
 				null, bgFillScheme, bgBorderScheme);
-		g2d.setComposite(LafWidgetUtilities.getAlphaComposite(monthView, g));
+		g2d.setComposite(WidgetUtilities.getAlphaComposite(monthView, g));
 
 		StateTransitionTracker monthTracker = this.monthStateTransitionMultiTracker
 				.getTracker(new MonthId(month, year));
@@ -752,7 +752,7 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 					.getColorScheme(monthView,
 							ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
 							currState);
-			g2d.setComposite(LafWidgetUtilities.getAlphaComposite(monthView,
+			g2d.setComposite(WidgetUtilities.getAlphaComposite(monthView,
 					SubstanceColorSchemeUtilities.getHighlightAlpha(monthView,
 							currState), g));
 			HighlightPainterUtils.paintHighlight(g2d, null, monthView, page,
@@ -772,7 +772,7 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 						.getColorScheme(monthView,
 								ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
 								activeState);
-				g2d.setComposite(LafWidgetUtilities.getAlphaComposite(
+				g2d.setComposite(WidgetUtilities.getAlphaComposite(
 						monthView, SubstanceColorSchemeUtilities
 								.getHighlightAlpha(monthView, activeState)
 								* contribution, g));
@@ -824,7 +824,7 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 						.getColorScheme(monthView,
 								ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
 								currState);
-				graphics.setComposite(LafWidgetUtilities.getAlphaComposite(
+				graphics.setComposite(WidgetUtilities.getAlphaComposite(
 						monthView, SubstanceColorSchemeUtilities
 								.getHighlightAlpha(monthView, currState), g));
 				HighlightPainterUtils.paintHighlight(graphics, null, monthView,
@@ -846,7 +846,7 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 									monthView,
 									ColorSchemeAssociationKind.HIGHLIGHT_BORDER,
 									activeState);
-					graphics.setComposite(LafWidgetUtilities.getAlphaComposite(
+					graphics.setComposite(WidgetUtilities.getAlphaComposite(
 							monthView, SubstanceColorSchemeUtilities
 									.getHighlightAlpha(monthView, activeState)
 									* contribution, g));

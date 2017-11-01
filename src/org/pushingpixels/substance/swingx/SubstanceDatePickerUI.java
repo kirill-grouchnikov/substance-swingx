@@ -43,7 +43,6 @@ import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXMonthView;
 import org.jdesktop.swingx.plaf.MonthViewUI;
 import org.jdesktop.swingx.plaf.basic.BasicDatePickerUI;
-import org.pushingpixels.lafwidget.utils.RenderingUtils;
 import org.pushingpixels.substance.api.SubstanceConstants.Side;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -53,6 +52,7 @@ import org.pushingpixels.substance.internal.utils.SubstanceOutlineUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceTextUtilities;
 import org.pushingpixels.substance.internal.utils.border.SubstanceTextComponentBorder;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 
 /**
  * Substance-consistent UI delegate for {@link JXDatePicker}.

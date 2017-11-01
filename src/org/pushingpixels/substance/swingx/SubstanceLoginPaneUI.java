@@ -40,14 +40,14 @@ import javax.swing.plaf.ComponentUI;
 
 import org.jdesktop.swingx.JXLoginPane;
 import org.jdesktop.swingx.plaf.basic.BasicLoginPaneUI;
-import org.pushingpixels.lafwidget.contrib.intellij.UIUtil;
-import org.pushingpixels.lafwidget.utils.RenderingUtils;
 import org.pushingpixels.substance.api.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
 import org.pushingpixels.substance.swingx.svg.Window_new;
 
 /**

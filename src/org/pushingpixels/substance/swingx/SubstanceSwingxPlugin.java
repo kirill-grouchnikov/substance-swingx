@@ -51,7 +51,7 @@ import org.pushingpixels.substance.api.SubstanceColorScheme;
 import org.pushingpixels.substance.api.SubstanceComponentPlugin;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.fonts.FontSet;
+import org.pushingpixels.substance.api.font.FontSet;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;

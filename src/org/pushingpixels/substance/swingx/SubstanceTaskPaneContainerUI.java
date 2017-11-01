@@ -28,11 +28,11 @@ import javax.swing.plaf.ComponentUI;
 import org.jdesktop.swingx.JXTaskPaneContainer;
 import org.jdesktop.swingx.VerticalLayout;
 import org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI;
-import org.pushingpixels.lafwidget.animation.effects.GhostPaintingUtils;
 import org.pushingpixels.substance.api.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
+import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
 
 /**
  * Substance-consistent UI delegate for {@link JXTaskPaneContainer}.
