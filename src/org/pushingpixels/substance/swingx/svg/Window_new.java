@@ -23,8 +23,8 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.Icon;
 import javax.swing.plaf.UIResource;
 
-import org.pushingpixels.substance.internal.hidpi.IsHiDpiAware;
-import org.pushingpixels.substance.internal.hidpi.IsResizable;
+import org.pushingpixels.substance.api.hidpi.IsHiDpiAware;
+import org.pushingpixels.substance.api.hidpi.IsResizable;
 
 /**
  * This class has been automatically generated using <a
