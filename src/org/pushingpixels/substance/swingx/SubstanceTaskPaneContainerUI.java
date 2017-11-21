@@ -28,8 +28,8 @@ import javax.swing.plaf.ComponentUI;
 import org.jdesktop.swingx.JXTaskPaneContainer;
 import org.jdesktop.swingx.VerticalLayout;
 import org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.widget.animation.effects.GhostPaintingUtils;
@@ -40,86 +40,80 @@ import org.pushingpixels.substance.internal.widget.animation.effects.GhostPainti
  * @author Kirill Grouchnikov
  */
 public class SubstanceTaskPaneContainerUI extends BasicTaskPaneContainerUI {
-	/**
-	 * Background delegate.
-	 */
-	private SubstanceSwingxFillBackgroundDelegate bgDelegate;
+    /**
+     * Background delegate.
+     */
+    private SubstanceSwingxFillBackgroundDelegate bgDelegate;
 
-	public static ComponentUI createUI(JComponent comp) {
-		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
-		return new SubstanceTaskPaneContainerUI();
-	}
+    public static ComponentUI createUI(JComponent comp) {
+        SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
+        return new SubstanceTaskPaneContainerUI();
+    }
 
-	/**
-	 * Creates a new UI delegate.
-	 */
-	public SubstanceTaskPaneContainerUI() {
-		super();
-		this.bgDelegate = new SubstanceSwingxFillBackgroundDelegate();
-	}
+    /**
+     * Creates a new UI delegate.
+     */
+    public SubstanceTaskPaneContainerUI() {
+        super();
+        this.bgDelegate = new SubstanceSwingxFillBackgroundDelegate();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI#installUI(javax
-	 * .swing.JComponent)
-	 */
-	@Override
-	public void installUI(JComponent c) {
-		super.installUI(c);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI#installUI(javax
+     * .swing.JComponent)
+     */
+    @Override
+    public void installUI(JComponent c) {
+        super.installUI(c);
 
-		JXTaskPaneContainer taskPane = (JXTaskPaneContainer) c;
-		taskPane.setLayout(new VerticalLayout(14));
-		taskPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-		// taskPane.putClientProperty(SubstanceLookAndFeel.PAINT_ACTIVE_PROPERTY
-		// ,
-		// Boolean.TRUE);
-		// taskPane.setOpaque(false);
-	}
+        JXTaskPaneContainer taskPane = (JXTaskPaneContainer) c;
+        taskPane.setLayout(new VerticalLayout(14));
+        taskPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        // taskPane.putClientProperty(SubstanceLookAndFeel.PAINT_ACTIVE_PROPERTY
+        // ,
+        // Boolean.TRUE);
+        // taskPane.setOpaque(false);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI#installDefaults()
-	 */
-	@Override
-	protected void installDefaults() {
-		super.installDefaults();
-		this.taskPane.setBackgroundPainter(null);
-		SubstanceLookAndFeel.setDecorationType(this.taskPane,
-				DecorationAreaType.GENERAL);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI#installDefaults()
+     */
+    @Override
+    protected void installDefaults() {
+        super.installDefaults();
+        this.taskPane.setBackgroundPainter(null);
+        SubstanceCortex.ComponentScope.setDecorationType(this.taskPane, DecorationAreaType.GENERAL);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI#uninstallDefaults
-	 * ()
-	 */
-	@Override
-	protected void uninstallDefaults() {
-		DecorationPainterUtils.clearDecorationType(this.taskPane);
-		super.uninstallDefaults();
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI#uninstallDefaults ()
+     */
+    @Override
+    protected void uninstallDefaults() {
+        DecorationPainterUtils.clearDecorationType(this.taskPane);
+        super.uninstallDefaults();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI#paint(java.awt
-	 * .Graphics, javax.swing.JComponent)
-	 */
-	@Override
-	public void paint(Graphics g, JComponent c) {
-		this.bgDelegate.paint(c, (Graphics2D) g, false);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI#paint(java.awt .Graphics,
+     * javax.swing.JComponent)
+     */
+    @Override
+    public void paint(Graphics g, JComponent c) {
+        this.bgDelegate.paint(c, (Graphics2D) g, false);
+    }
 
-	@Override
-	public void update(Graphics g, JComponent c) {
-		super.update(g, c);
-		GhostPaintingUtils.paintGhostImages(c, g);
-	}
+    @Override
+    public void update(Graphics g, JComponent c) {
+        super.update(g, c);
+        GhostPaintingUtils.paintGhostImages(c, g);
+    }
 }

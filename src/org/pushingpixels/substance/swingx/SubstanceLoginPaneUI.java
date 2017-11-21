@@ -40,7 +40,8 @@ import javax.swing.plaf.ComponentUI;
 
 import org.jdesktop.swingx.JXLoginPane;
 import org.jdesktop.swingx.plaf.basic.BasicLoginPaneUI;
-import org.pushingpixels.substance.api.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
@@ -56,161 +57,138 @@ import org.pushingpixels.substance.swingx.svg.Window_new;
  * @author Kirill Grouchnikov
  */
 public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
-	protected JXLoginPane loginPanel;
+    protected JXLoginPane loginPanel;
 
-	protected HierarchyListener substanceHierarchyListener;
+    protected HierarchyListener substanceHierarchyListener;
 
-	// protected ComponentListener substanceComponentListener;
+    // protected ComponentListener substanceComponentListener;
 
-	public static ComponentUI createUI(JComponent comp) {
-		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
-		return new SubstanceLoginPaneUI((JXLoginPane) comp);
-	}
+    public static ComponentUI createUI(JComponent comp) {
+        SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
+        return new SubstanceLoginPaneUI((JXLoginPane) comp);
+    }
 
-	/**
-	 * Creates a new UI component.
-	 * 
-	 * @param dlg
-	 *            Login panel component.
-	 */
-	public SubstanceLoginPaneUI(JXLoginPane dlg) {
-		super(dlg);
-		this.loginPanel = dlg;
-	}
+    /**
+     * Creates a new UI component.
+     * 
+     * @param dlg
+     *            Login panel component.
+     */
+    public SubstanceLoginPaneUI(JXLoginPane dlg) {
+        super(dlg);
+        this.loginPanel = dlg;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
-	 */
-	@Override
-	public void installUI(JComponent c) {
-		super.installUI(c);
-		this.substanceHierarchyListener = (HierarchyEvent e) -> {
-			SwingUtilities.invokeLater(() -> {
-				Window window = SwingUtilities.getWindowAncestor(loginPanel);
-				if (window != null) {
-					JComponent titlePane = SubstanceLookAndFeel
-							.getTitlePaneComponent(window);
-					if (titlePane != null) {
-						titlePane.putClientProperty(
-								SubstanceLookAndFeel.WATERMARK_VISIBLE,
-								Boolean.FALSE);
-					}
-				}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.swing.plaf.ComponentUI#installUI(javax.swing.JComponent)
+     */
+    @Override
+    public void installUI(JComponent c) {
+        super.installUI(c);
+        this.substanceHierarchyListener = (HierarchyEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                Window window = SwingUtilities.getWindowAncestor(loginPanel);
+                if (window != null) {
+                    JComponent titlePane = SubstanceCortex.WindowScope
+                            .getTitlePaneComponent(window);
+                    if (titlePane != null) {
+                        titlePane.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE,
+                                Boolean.FALSE);
+                    }
+                }
 
-				loginPanel.setBanner(getBanner());
-			});
-		};
-		this.loginPanel.addHierarchyListener(this.substanceHierarchyListener);
-		// this.substanceComponentListener = new ComponentAdapter() {
-		// @Override
-		// public void componentShown(ComponentEvent e) {
-		// SwingUtilities.invokeLater(new Runnable() {
-		// public void run() {
-		// System.out.println("Recomputed");
-		// loginPanel.setImage(getBanner());
-		// }
-		// });
-		// }
-		// };
-		// this.loginPanel.addComponentListener(this.substanceComponentListener)
-		// ;
-	}
+                loginPanel.setBanner(getBanner());
+            });
+        };
+        this.loginPanel.addHierarchyListener(this.substanceHierarchyListener);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
-	 */
-	@Override
-	public void uninstallUI(JComponent c) {
-		this.loginPanel
-				.removeHierarchyListener(this.substanceHierarchyListener);
-		this.substanceHierarchyListener = null;
-		// this.loginPanel.removeComponentListener(this.
-		// substanceComponentListener);
-		// this.substanceComponentListener = null;
-		super.uninstallUI(c);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.swing.plaf.ComponentUI#uninstallUI(javax.swing.JComponent)
+     */
+    @Override
+    public void uninstallUI(JComponent c) {
+        this.loginPanel.removeHierarchyListener(this.substanceHierarchyListener);
+        this.substanceHierarchyListener = null;
+        // this.loginPanel.removeComponentListener(this.
+        // substanceComponentListener);
+        // this.substanceComponentListener = null;
+        super.uninstallUI(c);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.jdesktop.swingx.plaf.basic.BasicLoginPanelUI#getBanner()
-	 */
-	@Override
-	public Image getBanner() {
-		Image superResult = super.getBanner();
-		if (this.loginPanel.getParent() == null)
-			return superResult;
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jdesktop.swingx.plaf.basic.BasicLoginPanelUI#getBanner()
+     */
+    @Override
+    public Image getBanner() {
+        Image superResult = super.getBanner();
+        if (this.loginPanel.getParent() == null)
+            return superResult;
 
-		int width = superResult.getWidth(null);
-		int height = superResult.getHeight(null);
-		BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
-		Graphics2D graphics = (Graphics2D) result.getGraphics();
+        int width = superResult.getWidth(null);
+        int height = superResult.getHeight(null);
+        BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
+        Graphics2D graphics = (Graphics2D) result.getGraphics();
 
-		Window_new origIcon = new Window_new();
-		origIcon.setDimension(new Dimension(32, 32));
-		Icon themedIcon = SubstanceCoreUtilities.getThemedIcon(this.loginPanel, origIcon);
+        Window_new origIcon = new Window_new();
+        origIcon.setDimension(new Dimension(32, 32));
+        Icon themedIcon = SubstanceCoreUtilities.getThemedIcon(this.loginPanel, origIcon);
 
-		SubstanceLookAndFeel.setDecorationType(this.loginPanel,
-				DecorationAreaType.HEADER);
-		BackgroundPaintingUtils.update(graphics, this.loginPanel, true);
-		DecorationPainterUtils.clearDecorationType(this.loginPanel);
+        SubstanceCortex.ComponentScope.setDecorationType(this.loginPanel, DecorationAreaType.HEADER);
+        BackgroundPaintingUtils.update(graphics, this.loginPanel, true);
+        DecorationPainterUtils.clearDecorationType(this.loginPanel);
 
-		float loginStringX = themedIcon.getIconWidth() + 8 + width * .05f;
-		float loginStringY = height * .75f;
+        float loginStringX = themedIcon.getIconWidth() + 8 + width * .05f;
+        float loginStringY = height * .75f;
 
-		Font font = UIManager.getFont("JXLoginPane.bannerFont");
-		graphics.setFont(font);
-		Graphics2D originalGraphics = graphics;
-		if (!loginPanel.getComponentOrientation().isLeftToRight()) {
-			originalGraphics = (Graphics2D) graphics.create();
-			graphics.scale(-1, 1);
-			graphics.translate(-width, 0);
-			loginStringX = width
-					- themedIcon.getIconWidth()
-					- 8
-					- (((float) font.getStringBounds(
-							loginPanel.getBannerText(),
-							originalGraphics.getFontRenderContext()).getWidth()) + width * .05f);
-		}
+        Font font = UIManager.getFont("JXLoginPane.bannerFont");
+        graphics.setFont(font);
+        Graphics2D originalGraphics = graphics;
+        if (!loginPanel.getComponentOrientation().isLeftToRight()) {
+            originalGraphics = (Graphics2D) graphics.create();
+            graphics.scale(-1, 1);
+            graphics.translate(-width, 0);
+            loginStringX = width - themedIcon.getIconWidth() - 8
+                    - (((float) font.getStringBounds(loginPanel.getBannerText(),
+                            originalGraphics.getFontRenderContext()).getWidth()) + width * .05f);
+        }
 
-		RenderingUtils.installDesktopHints(graphics, this.loginPanel);
+        RenderingUtils.installDesktopHints(graphics, this.loginPanel);
 
-		originalGraphics.setColor(SubstanceColorUtilities
-				.getForegroundColor(SubstanceCoreUtilities.getSkin(
-						this.loginPanel).getEnabledColorScheme(
-						DecorationAreaType.HEADER)));
-		originalGraphics.drawString(loginPanel.getBannerText(), loginStringX,
-				loginStringY);
+        originalGraphics.setColor(SubstanceColorUtilities.getForegroundColor(SubstanceCoreUtilities
+                .getSkin(this.loginPanel).getEnabledColorScheme(DecorationAreaType.HEADER)));
+        originalGraphics.drawString(loginPanel.getBannerText(), loginStringX, loginStringY);
 
-		int iconY = (height - themedIcon.getIconHeight()) / 2;
-		if (!loginPanel.getComponentOrientation().isLeftToRight()) {
-			graphics.translate(width - themedIcon.getIconWidth() - 8, iconY);
-			themedIcon.paintIcon(loginPanel, graphics, 0, 0);
-		} else {
-			graphics.translate(8, iconY);
-			themedIcon.paintIcon(loginPanel, graphics, 0, 0);
-		}
-		
-		if (UIUtil.isRetina()) {
-			GraphicsEnvironment e = GraphicsEnvironment
-					.getLocalGraphicsEnvironment();
-			GraphicsDevice d = e.getDefaultScreenDevice();
-			GraphicsConfiguration c = d.getDefaultConfiguration();
-			BufferedImage scaledDown = c.createCompatibleImage(width, height,
-					Transparency.TRANSLUCENT);
-			Graphics2D scaledGraphics = (Graphics2D) scaledDown.getGraphics().create();
-			scaledGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					RenderingHints.VALUE_ANTIALIAS_ON);
-			scaledGraphics.drawImage(result, 0, 0, result.getWidth() / 2,
-					result.getHeight() / 2, null);
-			scaledGraphics.dispose();
-			result = scaledDown;
-		}
-		
-		return result;
-	}
+        int iconY = (height - themedIcon.getIconHeight()) / 2;
+        if (!loginPanel.getComponentOrientation().isLeftToRight()) {
+            graphics.translate(width - themedIcon.getIconWidth() - 8, iconY);
+            themedIcon.paintIcon(loginPanel, graphics, 0, 0);
+        } else {
+            graphics.translate(8, iconY);
+            themedIcon.paintIcon(loginPanel, graphics, 0, 0);
+        }
+
+        if (UIUtil.isRetina()) {
+            GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice d = e.getDefaultScreenDevice();
+            GraphicsConfiguration c = d.getDefaultConfiguration();
+            BufferedImage scaledDown = c.createCompatibleImage(width, height,
+                    Transparency.TRANSLUCENT);
+            Graphics2D scaledGraphics = (Graphics2D) scaledDown.getGraphics().create();
+            scaledGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            scaledGraphics.drawImage(result, 0, 0, result.getWidth() / 2, result.getHeight() / 2,
+                    null);
+            scaledGraphics.dispose();
+            result = scaledDown;
+        }
+
+        return result;
+    }
 }

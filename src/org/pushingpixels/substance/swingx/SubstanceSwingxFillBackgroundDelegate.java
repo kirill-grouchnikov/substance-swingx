@@ -24,31 +24,29 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JSeparator;
 
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
 
 public class SubstanceSwingxFillBackgroundDelegate {
-	public void paint(JComponent component, Graphics2D graphics,
-			boolean paintSeparator) {
-		BackgroundPaintingUtils.updateIfOpaque(graphics, component);
-		if (paintSeparator) {
-			SubstanceSkin skin = SubstanceLookAndFeel.getCurrentSkin(component);
-			DecorationAreaType decorationAreaType = SubstanceLookAndFeel
-					.getDecorationType(component);
-			List<SubstanceOverlayPainter> overlayPainters = skin
-					.getOverlayPainters(decorationAreaType);
-			// only if there are no overlays specified on this decoration area
-			// type in the skin
-			if (overlayPainters.size() == 0) {
-				// paint the separator on top.
-				SeparatorPainterUtils.paintSeparator(component, graphics,
-						component.getWidth(), 0, JSeparator.HORIZONTAL, false,
-						0);
-			}
-		}
-	}
+    public void paint(JComponent component, Graphics2D graphics, boolean paintSeparator) {
+        BackgroundPaintingUtils.updateIfOpaque(graphics, component);
+        if (paintSeparator) {
+            SubstanceSkin skin = SubstanceCortex.ComponentScope.getCurrentSkin(component);
+            DecorationAreaType decorationAreaType = SubstanceCortex.ComponentScope
+                    .getDecorationType(component);
+            List<SubstanceOverlayPainter> overlayPainters = skin
+                    .getOverlayPainters(decorationAreaType);
+            // only if there are no overlays specified on this decoration area
+            // type in the skin
+            if (overlayPainters.size() == 0) {
+                // paint the separator on top.
+                SeparatorPainterUtils.paintSeparator(component, graphics, component.getWidth(), 0,
+                        JSeparator.HORIZONTAL, false, 0);
+            }
+        }
+    }
 }

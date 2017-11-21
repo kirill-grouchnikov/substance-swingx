@@ -34,10 +34,10 @@ import org.jdesktop.swingx.JXHeader;
 import org.jdesktop.swingx.JXTipOfTheDay;
 import org.jdesktop.swingx.plaf.UIManagerExt;
 import org.jdesktop.swingx.plaf.basic.BasicTipOfTheDayUI;
-import org.pushingpixels.substance.api.AnimationConfigurationManager;
-import org.pushingpixels.substance.api.AnimationFacet;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.icon.GlowingIcon;
@@ -49,75 +49,74 @@ import org.pushingpixels.substance.swingx.svg.Dialog_information;
  * @author Kirill Grouchnikov
  */
 public class SubstanceTipOfTheDayUI extends BasicTipOfTheDayUI {
-	static {
-		AnimationConfigurationManager.getInstance().allowAnimations(AnimationFacet.ICON_GLOW,
-				JXTipOfTheDay.class);
-	}
+    static {
+        AnimationConfigurationManager.getInstance().allowAnimations(AnimationFacet.ICON_GLOW,
+                JXTipOfTheDay.class);
+    }
 
-	protected IconGlowTracker iconGlowTracker;
+    protected IconGlowTracker iconGlowTracker;
 
-	public static ComponentUI createUI(JComponent comp) {
-		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
-		return new SubstanceTipOfTheDayUI((JXTipOfTheDay) comp);
-	}
+    public static ComponentUI createUI(JComponent comp) {
+        SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
+        return new SubstanceTipOfTheDayUI((JXTipOfTheDay) comp);
+    }
 
-	/**
-	 * Creates a new UI delegate.
-	 * 
-	 * @param tip
-	 *            Tip component.
-	 */
-	public SubstanceTipOfTheDayUI(JXTipOfTheDay tip) {
-		super(tip);
-	}
+    /**
+     * Creates a new UI delegate.
+     * 
+     * @param tip
+     *            Tip component.
+     */
+    public SubstanceTipOfTheDayUI(JXTipOfTheDay tip) {
+        super(tip);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jdesktop.swingx.plaf.basic.BasicTipOfTheDayUI#installComponents()
-	 */
-	@Override
-	protected void installComponents() {
-		tipPane.setLayout(new BorderLayout());
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jdesktop.swingx.plaf.basic.BasicTipOfTheDayUI#installComponents()
+     */
+    @Override
+    protected void installComponents() {
+        tipPane.setLayout(new BorderLayout());
 
-		// tip area
-		JPanel mainPane = new JPanel(new BorderLayout());
-		JXHeader didYouKnow = new JXHeader();
-		didYouKnow.setTitle(UIManagerExt.getString(
-				"TipOfTheDay.didYouKnowText", tipPane.getLocale()));
-		SubstanceLookAndFeel.setDecorationType(didYouKnow, DecorationAreaType.GENERAL);
+        // tip area
+        JPanel mainPane = new JPanel(new BorderLayout());
+        JXHeader didYouKnow = new JXHeader();
+        didYouKnow.setTitle(
+                UIManagerExt.getString("TipOfTheDay.didYouKnowText", tipPane.getLocale()));
+        SubstanceCortex.ComponentScope.setDecorationType(didYouKnow, DecorationAreaType.GENERAL);
 
-		Dialog_information origIcon = new Dialog_information();
-		origIcon.setDimension(new Dimension(22, 22));
-		Icon infoIcon = SubstanceLookAndFeel.isToUseConstantThemesOnDialogs() ? origIcon
-				: SubstanceCoreUtilities.getThemedIcon(this.tipPane, origIcon);
+        Dialog_information origIcon = new Dialog_information();
+        origIcon.setDimension(new Dimension(22, 22));
+        Icon infoIcon = SubstanceCortex.GlobalScope.isToUseConstantThemesOnDialogs() ? origIcon
+                : SubstanceCoreUtilities.getThemedIcon(this.tipPane, origIcon);
 
-		this.iconGlowTracker = new IconGlowTracker(didYouKnow);
-		GlowingIcon glowingIcon = new GlowingIcon(infoIcon, this.iconGlowTracker);
-		didYouKnow.setIcon(glowingIcon);
-		didYouKnow.setDescription("");
+        this.iconGlowTracker = new IconGlowTracker(didYouKnow);
+        GlowingIcon glowingIcon = new GlowingIcon(infoIcon, this.iconGlowTracker);
+        didYouKnow.setIcon(glowingIcon);
+        didYouKnow.setDescription("");
 
-		didYouKnow.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				iconGlowTracker.play();
-			}
+        didYouKnow.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                iconGlowTracker.play();
+            }
 
-			@Override
-			public void mouseExited(MouseEvent e) {
-				iconGlowTracker.cancel();
-			}
-		});
+            @Override
+            public void mouseExited(MouseEvent e) {
+                iconGlowTracker.cancel();
+            }
+        });
 
-		mainPane.add("North", didYouKnow);
+        mainPane.add("North", didYouKnow);
 
-		tipArea = new JPanel(new BorderLayout());
-		tipArea.setOpaque(false);
-		tipArea.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-		tipArea.setBackground(UIManager.getColor("TextArea.background"));
-		mainPane.add("Center", tipArea);
+        tipArea = new JPanel(new BorderLayout());
+        tipArea.setOpaque(false);
+        tipArea.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+        tipArea.setBackground(UIManager.getColor("TextArea.background"));
+        mainPane.add("Center", tipArea);
 
-		tipPane.add("Center", mainPane);
-	}
+        tipPane.add("Center", mainPane);
+    }
 }

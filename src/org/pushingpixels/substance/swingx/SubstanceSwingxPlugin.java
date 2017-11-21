@@ -44,12 +44,12 @@ import org.jdesktop.swingx.JXTipOfTheDay;
 import org.jdesktop.swingx.JXTitledPanel;
 import org.jdesktop.swingx.painter.Painter;
 import org.jdesktop.swingx.plaf.PainterUIResource;
-import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceColorScheme;
 import org.pushingpixels.substance.api.SubstanceComponentPlugin;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.font.FontSet;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
@@ -103,7 +103,7 @@ public class SubstanceSwingxPlugin implements SubstanceComponentPlugin {
 		Color selectionForegroundColor = new ColorUIResource(
 				highlightColorScheme.getSelectionForegroundColor());
 
-		FontSet fontSet = SubstanceLookAndFeel.getFontPolicy().getFontSet(
+		FontSet fontSet = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(
 				"Substance", null);
 
 		Font controlFont = fontSet.getControlFont();
@@ -114,7 +114,7 @@ public class SubstanceSwingxPlugin implements SubstanceComponentPlugin {
 				JComponent titledPanel = (JComponent) jxTitledPanel;
 				Graphics2D g2d = (Graphics2D) g.create();
 				// g2d.translate(10, 10);
-				DecorationAreaType decorationType = SubstanceLookAndFeel
+				DecorationAreaType decorationType = SubstanceCortex.ComponentScope
 						.getDecorationType(titledPanel);
 				if ((decorationType != null)
 						&& (SubstanceCoreUtilities.getSkin(titledPanel)

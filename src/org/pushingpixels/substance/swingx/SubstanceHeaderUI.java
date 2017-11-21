@@ -29,8 +29,8 @@ import org.jdesktop.swingx.JXHeader;
 import org.jdesktop.swingx.painter.Painter;
 import org.jdesktop.swingx.plaf.PainterUIResource;
 import org.jdesktop.swingx.plaf.basic.BasicHeaderUI;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -86,7 +86,7 @@ public class SubstanceHeaderUI extends BasicHeaderUI {
 		// this.descriptionPane.setOpaque(false);
 
 		super.installDefaults(h);
-		SubstanceLookAndFeel.setDecorationType(h, DecorationAreaType.HEADER);
+		SubstanceCortex.ComponentScope.setDecorationType(h, DecorationAreaType.HEADER);
 	}
 
 	/*

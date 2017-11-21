@@ -34,11 +34,11 @@ import javax.swing.plaf.ComponentUI;
 
 import org.jdesktop.swingx.JXStatusBar;
 import org.jdesktop.swingx.plaf.basic.BasicStatusBarUI;
-import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceColorScheme;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.painter.SeparatorPainterUtils;
@@ -82,7 +82,7 @@ public class SubstanceStatusBarUI extends BasicStatusBarUI {
 	@Override
 	protected void installDefaults(JXStatusBar sb) {
 		super.installDefaults(sb);
-		SubstanceLookAndFeel.setDecorationType(sb, DecorationAreaType.FOOTER);
+		SubstanceCortex.ComponentScope.setDecorationType(sb, DecorationAreaType.FOOTER);
 	}
 
 	/*

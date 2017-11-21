@@ -29,8 +29,8 @@ import javax.swing.plaf.UIResource;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.JXTitledPanel;
 import org.jdesktop.swingx.plaf.basic.BasicTitledPanelUI;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBorder;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -42,57 +42,51 @@ import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
  * @author Kirill Grouchnikov
  */
 public class SubstanceTitledPanelUI extends BasicTitledPanelUI {
-	public static ComponentUI createUI(JComponent comp) {
-		SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
-		return new SubstanceTitledPanelUI();
-	}
+    public static ComponentUI createUI(JComponent comp) {
+        SubstanceCoreUtilities.testComponentCreationThreadingViolation(comp);
+        return new SubstanceTitledPanelUI();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jdesktop.swingx.plaf.basic.BasicTitledPanelUI#installComponents(org
-	 * .jdesktop.swingx.JXTitledPanel)
-	 */
-	@Override
-	protected void installComponents(JXTitledPanel titledPanel) {
-		super.installComponents(titledPanel);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jdesktop.swingx.plaf.basic.BasicTitledPanelUI#installComponents(org
+     * .jdesktop.swingx.JXTitledPanel)
+     */
+    @Override
+    protected void installComponents(JXTitledPanel titledPanel) {
+        super.installComponents(titledPanel);
 
-		Border currBorder = titledPanel.getBorder();
-		if ((currBorder == null) || (currBorder instanceof UIResource)) {
-			titledPanel
-					.setBorder(new BorderUIResource.CompoundBorderUIResource(
-							new EmptyBorder(2, 2, 2, 2), new CompoundBorder(
-									ShadowPopupBorder.getInstance(),
-									new SubstanceBorder())));
-		}
-	}
+        Border currBorder = titledPanel.getBorder();
+        if ((currBorder == null) || (currBorder instanceof UIResource)) {
+            titledPanel.setBorder(new BorderUIResource.CompoundBorderUIResource(
+                    new EmptyBorder(2, 2, 2, 2),
+                    new CompoundBorder(ShadowPopupBorder.getInstance(), new SubstanceBorder())));
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jdesktop.swingx.plaf.basic.BasicTitledPanelUI#createAndConfigureTopPanel
-	 * (org.jdesktop.swingx.JXTitledPanel)
-	 */
-	@Override
-	protected JXPanel createAndConfigureTopPanel(JXTitledPanel titledPanel) {
-		JXPanel result = super.createAndConfigureTopPanel(titledPanel);
-		SubstanceLookAndFeel.setDecorationType(result,
-				DecorationAreaType.HEADER);
-		return result;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jdesktop.swingx.plaf.basic.BasicTitledPanelUI#createAndConfigureTopPanel
+     * (org.jdesktop.swingx.JXTitledPanel)
+     */
+    @Override
+    protected JXPanel createAndConfigureTopPanel(JXTitledPanel titledPanel) {
+        JXPanel result = super.createAndConfigureTopPanel(titledPanel);
+        SubstanceCortex.ComponentScope.setDecorationType(result, DecorationAreaType.HEADER);
+        return result;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jdesktop.swingx.plaf.basic.BasicTitledPanelUI#uninstallDefaults(org
-	 * .jdesktop.swingx.JXTitledPanel)
-	 */
-	@Override
-	protected void uninstallDefaults(JXTitledPanel titledPanel) {
-		DecorationPainterUtils.clearDecorationType(topPanel);
-		super.uninstallDefaults(titledPanel);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.jdesktop.swingx.plaf.basic.BasicTitledPanelUI#uninstallDefaults(org
+     * .jdesktop.swingx.JXTitledPanel)
+     */
+    @Override
+    protected void uninstallDefaults(JXTitledPanel titledPanel) {
+        DecorationPainterUtils.clearDecorationType(topPanel);
+        super.uninstallDefaults(titledPanel);
+    }
 }
