@@ -43,8 +43,8 @@ import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.JXMonthView;
 import org.jdesktop.swingx.plaf.MonthViewUI;
 import org.jdesktop.swingx.plaf.basic.BasicDatePickerUI;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities.TextComponentAware;
 import org.pushingpixels.substance.internal.utils.SubstanceDropDownButton;
@@ -152,13 +152,7 @@ public class SubstanceDatePickerUI extends BasicDatePickerUI {
 	private void configurePopupButton() {
 		Side side = this.datePicker.getComponentOrientation().isLeftToRight() ? Side.LEFT
 				: Side.RIGHT;
-		this.substancePopupButton.putClientProperty(
-				SubstanceLookAndFeel.BUTTON_SIDE_PROPERTY, side);
-		// this.substancePopupButton.putClientProperty(
-		// SubstanceLookAndFeel.BUTTON_OPEN_SIDE_PROPERTY, side);
-
-		// this.substancePopupButton.putClientProperty(
-		// SubstanceLookAndFeel.FLAT_PROPERTY, Boolean.TRUE);
+		SubstanceCortex.ComponentScope.setButtonStraightSide(this.substancePopupButton, side);
 
 		this.substancePopupButton.setRolloverEnabled(true);
 	}

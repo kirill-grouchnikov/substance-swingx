@@ -89,7 +89,7 @@ public class SubstanceTipOfTheDayUI extends BasicTipOfTheDayUI {
 
         Dialog_information origIcon = new Dialog_information();
         origIcon.setDimension(new Dimension(22, 22));
-        Icon infoIcon = SubstanceCortex.GlobalScope.isToUseConstantThemesOnDialogs() ? origIcon
+        Icon infoIcon = SubstanceCoreUtilities.shouldUseThemedIconsOnOptionPanes() ? origIcon
                 : SubstanceCoreUtilities.getThemedIcon(this.tipPane, origIcon);
 
         this.iconGlowTracker = new IconGlowTracker(didYouKnow);

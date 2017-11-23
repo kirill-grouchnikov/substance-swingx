@@ -40,9 +40,8 @@ import javax.swing.plaf.ComponentUI;
 
 import org.jdesktop.swingx.JXLoginPane;
 import org.jdesktop.swingx.plaf.basic.BasicLoginPaneUI;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
@@ -87,21 +86,19 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
     @Override
     public void installUI(JComponent c) {
         super.installUI(c);
-        this.substanceHierarchyListener = (HierarchyEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                Window window = SwingUtilities.getWindowAncestor(loginPanel);
-                if (window != null) {
-                    JComponent titlePane = SubstanceCortex.WindowScope
-                            .getTitlePaneComponent(window);
-                    if (titlePane != null) {
-                        titlePane.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE,
-                                Boolean.FALSE);
-                    }
+        this.substanceHierarchyListener = (HierarchyEvent e) -> SwingUtilities.invokeLater(() -> {
+            Window window = SwingUtilities.getWindowAncestor(loginPanel);
+            if (window != null) {
+                JComponent titlePane = SubstanceCortex.WindowScope.getTitlePaneComponent(window);
+                if (titlePane != null) {
+                    SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(titlePane,
+                            false);
                 }
+            }
 
-                loginPanel.setBanner(getBanner());
-            });
-        };
+            loginPanel.setBanner(getBanner());
+        });
+
         this.loginPanel.addHierarchyListener(this.substanceHierarchyListener);
     }
 
@@ -140,7 +137,8 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
         origIcon.setDimension(new Dimension(32, 32));
         Icon themedIcon = SubstanceCoreUtilities.getThemedIcon(this.loginPanel, origIcon);
 
-        SubstanceCortex.ComponentScope.setDecorationType(this.loginPanel, DecorationAreaType.HEADER);
+        SubstanceCortex.ComponentScope.setDecorationType(this.loginPanel,
+                DecorationAreaType.HEADER);
         BackgroundPaintingUtils.update(graphics, this.loginPanel, true);
         DecorationPainterUtils.clearDecorationType(this.loginPanel);
 
