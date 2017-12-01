@@ -18,7 +18,6 @@
  */
 package org.pushingpixels.substance.swingx;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
@@ -48,7 +47,7 @@ import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.filters.RenderingUtils;
-import org.pushingpixels.substance.swingx.svg.Window_new;
+import org.pushingpixels.substance.swingx.svg.window_new;
 
 /**
  * Substance-consistent UI delegate for {@link JXLoginPane}.
@@ -133,9 +132,8 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
         BufferedImage result = SubstanceCoreUtilities.getBlankImage(width, height);
         Graphics2D graphics = (Graphics2D) result.getGraphics();
 
-        Window_new origIcon = new Window_new();
-        origIcon.setDimension(new Dimension(32, 32));
-        Icon themedIcon = SubstanceCoreUtilities.getThemedIcon(this.loginPanel, origIcon);
+        Icon themedIcon = SubstanceCoreUtilities.getThemedIcon(this.loginPanel,
+                window_new.of(32, 32));
 
         SubstanceCortex.ComponentScope.setDecorationType(this.loginPanel,
                 DecorationAreaType.HEADER);

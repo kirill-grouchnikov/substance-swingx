@@ -19,7 +19,6 @@
 package org.pushingpixels.substance.swingx;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -34,14 +33,15 @@ import org.jdesktop.swingx.JXHeader;
 import org.jdesktop.swingx.JXTipOfTheDay;
 import org.jdesktop.swingx.plaf.UIManagerExt;
 import org.jdesktop.swingx.plaf.basic.BasicTipOfTheDayUI;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.icon.SubstanceIcon;
 import org.pushingpixels.substance.internal.AnimationConfigurationManager;
 import org.pushingpixels.substance.internal.animation.IconGlowTracker;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.icon.GlowingIcon;
-import org.pushingpixels.substance.swingx.svg.Dialog_information;
+import org.pushingpixels.substance.swingx.svg.dialog_information;
 
 /**
  * Substance-consistent UI delegate for {@link JXTipOfTheDay}.
@@ -87,8 +87,7 @@ public class SubstanceTipOfTheDayUI extends BasicTipOfTheDayUI {
                 UIManagerExt.getString("TipOfTheDay.didYouKnowText", tipPane.getLocale()));
         SubstanceCortex.ComponentScope.setDecorationType(didYouKnow, DecorationAreaType.GENERAL);
 
-        Dialog_information origIcon = new Dialog_information();
-        origIcon.setDimension(new Dimension(22, 22));
+        SubstanceIcon origIcon = dialog_information.of(32, 32);
         Icon infoIcon = SubstanceCoreUtilities.shouldUseThemedIconsOnOptionPanes() ? origIcon
                 : SubstanceCoreUtilities.getThemedIcon(this.tipPane, origIcon);
 
