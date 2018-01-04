@@ -59,6 +59,7 @@ import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceImageCreator;
 import org.pushingpixels.substance.internal.utils.SubstanceSizeUtils;
 import org.pushingpixels.substance.internal.utils.border.SubstanceBorder;
+import org.pushingpixels.substance.swingx.svg.ic_search_black_24px;
 
 /**
  * Substance plugin for <a href="https://swingx.dev.java.net">SwingX</a>
@@ -266,6 +267,9 @@ public class SubstanceSwingxPlugin implements SubstanceComponentPlugin {
 
 				"JXMonthView.trailingDayForeground",
 				disabledForegroundColor,
+				
+				"SearchField.icon",
+				ic_search_black_24px.uiResourceOf(14, 14).colorize(foregroundColor, 0.75f),
 
 				"TaskPane.titleForeground",
 				foregroundColor,
@@ -281,9 +285,6 @@ public class SubstanceSwingxPlugin implements SubstanceComponentPlugin {
 
 				"TaskPaneContainer.background",
 				backgroundColor,
-				// new ColorUIResource(new SubstanceComplexTheme("dummy",
-				// activeTitleTheme.getKind(), null, activeTitleTheme,
-				// null, null).getBackgroundColor()),
 
 				"TaskPaneContainer.backgroundPainter",
 				null,
