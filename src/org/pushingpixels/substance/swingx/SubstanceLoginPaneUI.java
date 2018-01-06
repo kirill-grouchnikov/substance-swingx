@@ -88,7 +88,7 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
         this.substanceHierarchyListener = (HierarchyEvent e) -> SwingUtilities.invokeLater(() -> {
             Window window = SwingUtilities.getWindowAncestor(loginPanel);
             if (window != null) {
-                JComponent titlePane = SubstanceCortex.WindowScope.getTitlePaneComponent(window);
+                JComponent titlePane = SubstanceCoreUtilities.getTitlePaneComponent(window);
                 if (titlePane != null) {
                     SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(titlePane,
                             false);
