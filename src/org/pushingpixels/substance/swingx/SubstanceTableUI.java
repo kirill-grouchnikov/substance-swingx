@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2016 Kirill Grouchnikov, based on work by
+ * Copyright 2005-2018 Kirill Grouchnikov, based on work by
  * Sun Microsystems, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or
