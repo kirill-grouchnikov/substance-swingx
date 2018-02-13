@@ -25,6 +25,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.util.Map;
 
@@ -107,11 +108,6 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
         this.stateTransitionTracker = new StateTransitionTracker(taskPane, this.taskPaneModel);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI#installListeners()
-     */
     @Override
     protected void installListeners() {
         super.installListeners();
@@ -123,11 +119,6 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
         this.stateTransitionTracker.registerModelListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI#uninstallListeners()
-     */
     @Override
     protected void uninstallListeners() {
         this.group.removeMouseListener(this.substanceRolloverListener);
@@ -139,11 +130,6 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
         super.uninstallListeners();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI#installDefaults()
-     */
     @Override
     protected void installDefaults() {
         SubstanceCortex.ComponentScope.setDecorationType(this.group, DecorationAreaType.GENERAL);
@@ -151,32 +137,17 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
         super.installDefaults();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI#uninstallUI(javax.swing .JComponent)
-     */
     @Override
     public void uninstallUI(JComponent c) {
         DecorationPainterUtils.clearDecorationType(this.group);
         super.uninstallUI(c);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI#createPaneBorder()
-     */
     @Override
     protected Border createPaneBorder() {
         return new SubstancePaneBorder();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI#createContentPaneBorder()
-     */
     @Override
     protected Border createContentPaneBorder() {
         SubstanceColorScheme colorScheme = SubstanceColorSchemeUtilities.getColorScheme(group,
@@ -263,12 +234,6 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
             this.label.putClientProperty(SubstanceTextUtilities.ENFORCE_FG_COLOR, Boolean.TRUE);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @seeorg.jdesktop.swingx.plaf.basic.BasicTaskPaneUI.PaneBorder#
-         * paintTitleBackground(org.jdesktop.swingx.JXTaskPane, java.awt.Graphics)
-         */
         @Override
         protected void paintTitleBackground(JXTaskPane group, Graphics g) {
             Graphics2D graphics = (Graphics2D) g.create();
@@ -312,12 +277,6 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
             graphics.dispose();
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI$PaneBorder#getPaintColor
-         * (org.jdesktop.swingx.JXTaskPane)
-         */
         @Override
         protected Color getPaintColor(JXTaskPane group) {
             StateTransitionTracker.ModelStateInfo modelStateInfo = stateTransitionTracker
@@ -359,13 +318,6 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
             return currScheme;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @seeorg.jdesktop.swingx.plaf.basic.BasicTaskPaneUI$PaneBorder#
-         * paintExpandedControls(org.jdesktop.swingx.JXTaskPane, java.awt.Graphics, int, int, int,
-         * int)
-         */
         @Override
         protected void paintExpandedControls(JXTaskPane group, Graphics g, int x, int y, int width,
                 int height) {
@@ -373,32 +325,18 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
             int dx = (width - arrowIcon.getIconWidth()) / 2;
             int dy = 1 + (height - arrowIcon.getIconHeight()) / 2;
             Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.translate(x + dx, y + dy);
             arrowIcon.paintIcon(group, g2d, 0, 0);
             g2d.dispose();
-            // g.setColor(Color.red);
-            // g.drawRect(x, y, width, height);
-            // g.setColor(Color.green);
-            // g.drawRect(x + dx, y + dy, arrowIcon.getIconWidth(), arrowIcon
-            // .getIconHeight());
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @seeorg.jdesktop.swingx.plaf.basic.BasicTaskPaneUI$PaneBorder# isMouseOverBorder()
-         */
         @Override
         protected boolean isMouseOverBorder() {
             return true;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI$PaneBorder#paintFocus
-         * (java.awt.Graphics, java.awt.Color, int, int, int, int)
-         */
         @Override
         protected void paintFocus(Graphics g, Color paintColor, int x, int y, int width,
                 int height) {
@@ -406,12 +344,6 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
                     new Rectangle(x, y, width - 1, height - 1), label.getBounds(), 1.0f, 0);
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI$PaneBorder#configureLabel
-         * (org.jdesktop.swingx.JXTaskPane)
-         */
         @Override
         protected void configureLabel(JXTaskPane group) {
             label.applyComponentOrientation(group.getComponentOrientation());
@@ -421,11 +353,6 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see javax.swing.plaf.ComponentUI#paint(java.awt.Graphics, javax.swing.JComponent)
-     */
     @Override
     public void paint(Graphics g, JComponent c) {
         this.bgDelegate.paint(c, (Graphics2D) g, false);
@@ -441,11 +368,6 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
         return this.stateTransitionTracker;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI#getTitleHeight(java.awt .Component)
-     */
     @Override
     protected int getTitleHeight(Component c) {
         return SubstanceSizeUtils.getAdjustedSize(SubstanceSizeUtils.getComponentFontSize(c),

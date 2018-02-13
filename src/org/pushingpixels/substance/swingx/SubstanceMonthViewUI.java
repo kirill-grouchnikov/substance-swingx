@@ -20,6 +20,7 @@ package org.pushingpixels.substance.swingx;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -37,6 +38,7 @@ import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonModel;
 import javax.swing.DefaultButtonModel;
+import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -902,6 +904,21 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 		this.paint(g2d, c);
 		g2d.dispose();
 	}
+	
+	private class SubstanceIconBorder extends IconBorder {
+        public SubstanceIconBorder(Icon validIcon, int iconPosition, int padding) {
+            super(validIcon, iconPosition, padding);
+        }
+
+        @Override
+	    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+	        Graphics2D g2d = (Graphics2D) g.create();
+	        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+	                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+	        super.paintBorder(c, g2d, x, y, width, height);
+	        g2d.dispose();
+	    }
+	}
 
 	protected class SubstanceRenderingHandler extends RenderingHandler {
 		@Override
@@ -1033,9 +1050,9 @@ public class SubstanceMonthViewUI extends BasicMonthViewUI implements
 
 		private Border getTitleBorder() {
 			if (monthView.isTraversable()) {
-				IconBorder up = new IconBorder(monthUpImage,
+			    SubstanceIconBorder up = new SubstanceIconBorder(monthUpImage,
 						SwingConstants.EAST, monthView.getBoxPaddingX());
-				IconBorder down = new IconBorder(monthDownImage,
+				SubstanceIconBorder down = new SubstanceIconBorder(monthDownImage,
 						SwingConstants.WEST, monthView.getBoxPaddingX());
 				Border compound = BorderFactory.createCompoundBorder(up, down);
 				Border empty = BorderFactory
