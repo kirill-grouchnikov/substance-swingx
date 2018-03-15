@@ -29,7 +29,7 @@ import javax.swing.plaf.UIResource;
 import org.jdesktop.swingx.JXPanel;
 import org.jdesktop.swingx.JXTitledPanel;
 import org.jdesktop.swingx.plaf.basic.BasicTitledPanelUI;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.internal.contrib.jgoodies.looks.ShadowPopupBorder;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
@@ -74,7 +74,7 @@ public class SubstanceTitledPanelUI extends BasicTitledPanelUI {
     @Override
     protected JXPanel createAndConfigureTopPanel(JXTitledPanel titledPanel) {
         JXPanel result = super.createAndConfigureTopPanel(titledPanel);
-        SubstanceCortex.ComponentScope.setDecorationType(result, DecorationAreaType.HEADER);
+        ComponentOrParentChainScope.setDecorationType(result, DecorationAreaType.HEADER);
         return result;
     }
 

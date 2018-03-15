@@ -40,6 +40,7 @@ import javax.swing.plaf.ComponentUI;
 import org.jdesktop.swingx.JXLoginPane;
 import org.jdesktop.swingx.plaf.basic.BasicLoginPaneUI;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.internal.contrib.intellij.UIUtil;
 import org.pushingpixels.substance.internal.painter.BackgroundPaintingUtils;
@@ -135,7 +136,7 @@ public class SubstanceLoginPaneUI extends BasicLoginPaneUI {
         Icon themedIcon = SubstanceCoreUtilities.getThemedIcon(this.loginPanel,
                 window_new.of(32, 32));
 
-        SubstanceCortex.ComponentScope.setDecorationType(this.loginPanel,
+        ComponentOrParentChainScope.setDecorationType(this.loginPanel,
                 DecorationAreaType.HEADER);
         BackgroundPaintingUtils.update(graphics, this.loginPanel, true);
         DecorationPainterUtils.clearDecorationType(this.loginPanel);

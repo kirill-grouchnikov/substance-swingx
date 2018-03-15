@@ -28,7 +28,7 @@ import javax.swing.plaf.ComponentUI;
 import org.jdesktop.swingx.JXTaskPaneContainer;
 import org.jdesktop.swingx.VerticalLayout;
 import org.jdesktop.swingx.plaf.basic.BasicTaskPaneContainerUI;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.internal.painter.DecorationPainterUtils;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
@@ -86,7 +86,7 @@ public class SubstanceTaskPaneContainerUI extends BasicTaskPaneContainerUI {
     protected void installDefaults() {
         super.installDefaults();
         this.taskPane.setBackgroundPainter(null);
-        SubstanceCortex.ComponentScope.setDecorationType(this.taskPane, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(this.taskPane, DecorationAreaType.GENERAL);
     }
 
     /*

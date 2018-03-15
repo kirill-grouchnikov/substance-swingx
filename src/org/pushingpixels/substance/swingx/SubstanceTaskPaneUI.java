@@ -43,7 +43,7 @@ import org.jdesktop.swingx.JXTaskPane;
 import org.jdesktop.swingx.icon.EmptyIcon;
 import org.jdesktop.swingx.plaf.basic.BasicTaskPaneUI;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
@@ -132,7 +132,7 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
 
     @Override
     protected void installDefaults() {
-        SubstanceCortex.ComponentScope.setDecorationType(this.group, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(this.group, DecorationAreaType.GENERAL);
 
         super.installDefaults();
     }
@@ -228,7 +228,7 @@ public class SubstanceTaskPaneUI extends BasicTaskPaneUI implements TransitionAw
 
             // since the label is never added to this component, we need
             // to explicitly mark it as DecorationAreaType.GENERAL
-            SubstanceCortex.ComponentScope.setDecorationType(this.label,
+            ComponentOrParentChainScope.setDecorationType(this.label,
                     DecorationAreaType.GENERAL);
             // and enforce the foreground color computed in #getPaintColor
             this.label.putClientProperty(SubstanceTextUtilities.ENFORCE_FG_COLOR, Boolean.TRUE);

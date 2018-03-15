@@ -25,6 +25,7 @@ import javax.swing.JComponent;
 import javax.swing.JSeparator;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.painter.overlay.SubstanceOverlayPainter;
@@ -36,7 +37,7 @@ public class SubstanceSwingxFillBackgroundDelegate {
         BackgroundPaintingUtils.updateIfOpaque(graphics, component);
         if (paintSeparator) {
             SubstanceSkin skin = SubstanceCortex.ComponentScope.getCurrentSkin(component);
-            DecorationAreaType decorationAreaType = SubstanceCortex.ComponentScope
+            DecorationAreaType decorationAreaType = ComponentOrParentChainScope
                     .getDecorationType(component);
             List<SubstanceOverlayPainter> overlayPainters = skin
                     .getOverlayPainters(decorationAreaType);

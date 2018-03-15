@@ -33,7 +33,7 @@ import org.jdesktop.swingx.JXHeader;
 import org.jdesktop.swingx.JXTipOfTheDay;
 import org.jdesktop.swingx.plaf.UIManagerExt;
 import org.jdesktop.swingx.plaf.basic.BasicTipOfTheDayUI;
-import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.icon.SubstanceIcon;
@@ -85,7 +85,7 @@ public class SubstanceTipOfTheDayUI extends BasicTipOfTheDayUI {
         JXHeader didYouKnow = new JXHeader();
         didYouKnow.setTitle(
                 UIManagerExt.getString("TipOfTheDay.didYouKnowText", tipPane.getLocale()));
-        SubstanceCortex.ComponentScope.setDecorationType(didYouKnow, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(didYouKnow, DecorationAreaType.GENERAL);
 
         SubstanceIcon origIcon = dialog_information.of(32, 32);
         Icon infoIcon = SubstanceCoreUtilities.shouldUseThemedIconsOnOptionPanes() ? origIcon
