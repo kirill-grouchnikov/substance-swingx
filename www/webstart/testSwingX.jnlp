@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="https://substance-swingx.dev.java.net/webstart/"
+ href="testSwingX.jnlp">
+<information>
+  <title>SwingX demo - Substance look and feel</title>
+  <vendor>https://substance-swingx.dev.java.net/</vendor>
+  <description>SwingX demo - Substance look and feel</description> 
+  <description kind="short">SwingX demo - Substance look and feel</description> 
+  <offline-allowed/> 
+</information>
+<offline-allowed/>
+<security>
+  <all-permissions/>
+</security>
+<resources>
+  <property name="jnlp.packEnabled" value="true"/>
+  <j2se version="1.6+" />
+  <jar href="substance-swingx-tst.jar"/>
+  <jar href="substance-swingx.jar"/>
+  <jar href="swingx.jar"/>
+  <extension name="trident-core" href="https://kenai.com/svn/trident~source/www/webstart/trident-core.jnlp"/>
+  <extension name="common-forms" href="https://pushingpixels.dev.java.net/webstart/common-forms.jnlp"/>
+  <extension name="substance-all" href="https://substance.dev.java.net/webstart/substance-all.jnlp"/>
+</resources>
+<application-desc main-class="test.TestSwingXFrame" />
+</jnlp>
